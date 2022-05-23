@@ -6,7 +6,8 @@ import {AppButton} from './app/components/AppButton'
 //to import icons, can refer google for possible icons
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Card from './app/components/Card'
-import EventsListings from './app/screens/EventListing_1';
+import EventsListing_1 from './app/screens/EventListing_1';
+import Eventspage from './app/screens/eventspage';
 
 
 
@@ -14,7 +15,7 @@ import EventsListings from './app/screens/EventListing_1';
 
 export default function App() {
   return ( 
-    <WelcomeScreen />
+    <EventsListing_1 />
   );
   
 }
