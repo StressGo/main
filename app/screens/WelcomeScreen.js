@@ -1,16 +1,43 @@
-import React from 'react'
-import { ImageBackground, StyleSheet, View, Button, Image } from "react-native"
+import React, {useState} from 'react'
+import {KeyboardAvoidingView,ImageBackground, StyleSheet, View, Button, Image, TextInput } from "react-native"
 import colors from '../config/colors';
 import AppButton from '../components/AppButton' //why does it keep craSHING??
 
+/* firebase */
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from 'firebase'
 
 
-function WelcomeScreen(props) {
+function WelcomeScreen() {
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
   //rsf
+
+  const signUp = () => {
+    auth
+    .createUserWithEmailAndPassword(email,password)
+    .then(userInfo => {
+      const user = userInfo.user;
+      console.log(user.email) //testing
+    })
+    .catch(error => alert(error.message))
+  }
+
+  const login = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(userInfo => {
+        const user = userInfo.user;
+        console.log( user.email); //testing
+      })
+      .catch(error => alert(error.message))
+  }
   return (
-      <View>
-        <ImageBackground 
-          style = {styles.container}
+      <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding">
+       <ImageBackground 
+          style = {styles.imageContainer}
           blurRadius = {8}
           source = {require('../assets/homepage.jpg')}>
             
@@ -23,17 +50,40 @@ function WelcomeScreen(props) {
               
             }}
             />
+            <View style={styles.inputContainer}>
+          <TextInput
+            placeholder = "Email" 
+            value = {email}
+            onChangeText = {text => setEmail(text)}
+            style = {styles.input}>
+          </TextInput>
+          <TextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={text => setPassword(text)}
+          style={styles.input}>
           
-        </ImageBackground>
-        
+         </TextInput>
       </View>
+          
+        </ImageBackground> 
+        
+ </KeyboardAvoidingView>
+        
     );
 }
+export default WelcomeScreen
 
 const styles = StyleSheet.create({
     container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      },
+      imageContainer: {
         height: '100%',
         width: '100%',
+
       },
       button: {
         position: 'absolute',
@@ -46,6 +96,21 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginBottom: 36
       },
-})
+      inputContainer: {
+        width: '80%',
+        alignSelf: 'center',
 
-export default WelcomeScreen
+      },
+      input: {
+        backgroundColor: 'white',
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 10,
+        marginTop: 5,
+       
+       
+      }
+});
+
+
+
