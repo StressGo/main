@@ -1,21 +1,25 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Button, ImageBackground } from 'react-native';
-import WelcomeScreen from './app/screens/WelcomeScreen';
-import {AppButton} from './app/components/AppButton'
+import React, {useState} from 'react';
+import { StyleSheet, Text, View, Image, Button, ImageBackground, TextInput } from 'react-native';
+import Screen from './app/components/Screen'
 //to import icons, can refer google for possible icons
 import {MaterialCommunityIcons} from '@expo/vector-icons';
-import Card from './app/components/Card'
-import EventsListing_1 from './app/screens/EventListing_1';
-import Eventspage from './app/screens/eventspage';
+import AppTextInput from './app/components/AppTextInput';
+
+
+
+
 
 
 
 
 
 export default function App() {
+  const [firstName, setFirstName] = useState('');
+
   return ( 
-    <EventsListing_1 />
+    <Screen>
+      <AppTextInput placeholder={"Username"} icon = {'email'} />
+    </Screen>
   );
   
 }

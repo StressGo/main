@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "HealthGo",
-    "slug": "HealthGo",
+    "name": "RunningGo",
+    "slug": "runninggo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
@@ -28,6 +28,7 @@
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }

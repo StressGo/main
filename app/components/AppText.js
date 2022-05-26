@@ -44,6 +44,9 @@ const styles = StyleSheet.create({
                 fontFamily: "Roboto"
             }
         })
+    },
+    container: {
+        
     }
 })
 
