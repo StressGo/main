@@ -5,7 +5,7 @@ import AppButton from '../components/AppButton'
 
 /* firebase */
 import { signInWithEmailAndPassword } from 'firebase/auth'
-// import { auth } from '../firebase'
+import { auth } from '../../firebase'
 
 
 function WelcomeScreen() {

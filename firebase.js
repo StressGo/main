@@ -1,6 +1,6 @@
 
 // import all functions needed from the SDKS needed
-import { getApps, initializeApp } from "firebase/app";
+import {initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 
@@ -23,12 +23,9 @@ const firebaseConfig = {
     measurementId: FIREBASE_MEASUREMENTID,
   }
 
-let app
-if (getApps.length === 0) {
-    app = initializeApp(firebaseConfig)
-} else {
-    app = getApp()
-}
 
+
+const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app);
+
 
