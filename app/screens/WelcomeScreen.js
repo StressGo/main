@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {KeyboardAvoidingView,ImageBackground, StyleSheet, View, Button, Image, TextInput } from "react-native"
 import colors from '../config/colors';
-import AppButton from '../components/AppButton' //why does it keep craSHING??
+import AppButton from '../components/AppButton' 
 
 /* firebase */
 import { signInWithEmailAndPassword } from 'firebase/auth'
-// import { auth } from 'firebase'
+// import { auth } from '../firebase'
 
 
 function WelcomeScreen() {
@@ -64,6 +64,10 @@ function WelcomeScreen() {
           style={styles.input}>
           
          </TextInput>
+      </View>
+      <View style={styles.container}>
+           <AppButton title = 'Login' onPress = {() => console.log('yo')} />
+           <AppButton title = 'Register' onPress = {() => console.log('yo')} />
       </View>
           
         </ImageBackground> 

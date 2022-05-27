@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, Button, ImageBackground } from 'react-native';
 import WelcomeScreen from './app/screens/WelcomeScreen';
-import {AppButton} from './app/components/AppButton'
+import AppButton from './app/components/AppButton'
 //to import icons, can refer google for possible icons
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Card from './app/components/Card'
@@ -20,7 +20,7 @@ export default function App() {
       <Stack.Screen name ="login" component={WelcomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-    //<AppButton title = 'yo' onPress = {() => console.log('yo')}> </AppButton>
+    
   );
   
 }

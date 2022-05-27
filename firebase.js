@@ -30,6 +30,5 @@ if (getApps.length === 0) {
     app = getApp()
 }
 
-const auth = getAuth(app)
+export const auth = getAuth(app);
 
-export {auth}
