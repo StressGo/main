@@ -1,21 +1,32 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {KeyboardAvoidingView,ImageBackground, StyleSheet, View, Button, Image, TextInput } from "react-native"
 import colors from '../config/colors';
 import AppButton from '../components/AppButton' 
-
+import { useNavigation } from '@react-navigation/core';
 /* firebase */
-import { signInWithEmailAndPassword } from 'firebase/auth'
+
 import { auth } from '../../firebase'
+import { signInWithEmailAndPassword,createUserWithEmailAndPassword } from "firebase/auth";
+
 
 
 function WelcomeScreen() {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
-  //rsf
+
+  const navigation = useNavigation()
+  
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        navigation.replace("Home")
+      }
+    })
+    return unsubscribe
+  },[])
 
   const signUp = () => {
-    auth
-    .createUserWithEmailAndPassword(email,password)
+    createUserWithEmailAndPassword(auth,email,password)
     .then(userInfo => {
       const user = userInfo.user;
       console.log(user.email) //testing
@@ -24,8 +35,7 @@ function WelcomeScreen() {
   }
 
   const login = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then(userInfo => {
         const user = userInfo.user;
         console.log( user.email); //testing
@@ -66,8 +76,8 @@ function WelcomeScreen() {
          </TextInput>
       </View>
       <View style={styles.container}>
-           <AppButton title = 'Login' onPress = {() => console.log('yo')} />
-           <AppButton title = 'Register' onPress = {() => console.log('yo')} />
+           <AppButton title = 'Login' onPress = {login} />
+           <AppButton title = 'Register' onPress = {signUp} />
       </View>
           
         </ImageBackground> 

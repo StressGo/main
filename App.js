@@ -9,7 +9,7 @@ import Card from './app/components/Card'
 import EventsListing_1 from './app/screens/EventListing_1';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import HomeScreen from './app/screens/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +17,8 @@ export default function App() {
   return ( 
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name ="login" component={WelcomeScreen} />
+      <Stack.Screen options = { {headerShown: false}} name ="login" component={WelcomeScreen} />
+      <Stack.Screen options = { {headerShown: false}} name ="Home" component={HomeScreen} /> 
       </Stack.Navigator>
     </NavigationContainer>
     
