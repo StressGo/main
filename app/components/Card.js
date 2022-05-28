@@ -1,18 +1,20 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import colors from '../config/colors';
 import AppText from './AppText';
 
-function Card({title, subTitle, image}) {
+function Card({title, subTitle, image, onPress}) {
     // you cqan use View as a container to put styles onto certain components
     return (
-        <View style = {styles.card}>
-            <Image style= {styles.image} source= {image} />
-            <View style = {styles.detailsContainer}> 
-                <AppText>{title}</AppText>
-                <AppText style = {styles.subTitle}>{subTitle}</AppText>
+        <TouchableOpacity>
+            <View style = {styles.card} onPress = {onPress}>
+                <Image style= {styles.image} source= {image} />
+                <View style = {styles.detailsContainer}> 
+                    <AppText style = {styles.title}>{title}</AppText>
+                    <AppText style = {styles.subTitle}>{subTitle}</AppText>
+                </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 
@@ -28,18 +30,21 @@ const styles = StyleSheet.create({
     },
     detailsContainer: {
         padding: 20,
-
+        
     },
     image: {
         width: '100%',
-        height: 200,
+        height: 100,
+
     },
     title: {
-        marginBottom: 7,
+        marginBottom: 1,
+        fontWeight: "bold",
+        color: colors.primary,
+        fontSize: 30,
     },
     subTitle: {
         color: colors.secondary,
-        fontWeight: "bold",
     }
 })
 
