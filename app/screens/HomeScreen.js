@@ -26,7 +26,7 @@ const HomeScreen = () => {
           style = {styles.imageContainer}
             >
           <Text style = {styles.text} >Hello, {auth.currentUser.email} </Text>
-          <View>
+          <View style = {styles.cards}>
                 <Card 
                     title={'Run'}
                     subTitle={'Ready for a run?'}
@@ -52,6 +52,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     
+  },
+  cards: {
+    width: '95%',
+    alignSelf: 'center'
   },
   text: {
     padding: 30,

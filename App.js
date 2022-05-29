@@ -6,6 +6,7 @@ import HomeScreen from './app/screens/HomeScreen';
 import EventsGo_pg1 from './app/screens/Connect_me';
 import EventsListing_1 from './app/screens/EventListing_1';
 import EventsPage from './app/screens/EventsPage';
+import Found_runner from './app/screens/Found_runner';
 
 const Stack = createNativeStackNavigator();
 
