@@ -3,8 +3,10 @@ import { View, Text, StyleSheet, ImageBackground } from 'react-native'
 import Card from '../components/Card';
 import colors from '../config/colors';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/core';
 
 function EventsPage(props) {
+    const navigation = useNavigation()
     return (
         <View style = {styles.container}>
             <ImageBackground
@@ -24,6 +26,9 @@ function EventsPage(props) {
                 title={'NIKE RUN'}
                 subTitle={'Just Run Lah!'}
                 image={require('../assets/Nike_KL_Run.jpg')}
+                onPress = {() => {
+                    navigation.replace("EventsListing_1")
+              }}
             />
             <Card 
                 title={'ADIDAS RUN'}

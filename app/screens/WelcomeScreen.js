@@ -38,7 +38,7 @@ function WelcomeScreen() {
     signInWithEmailAndPassword(auth, email, password)
       .then(userInfo => {
         const user = userInfo.user;
-        console.log( user.email); //testing
+        console.log(user.email); //testing
       })
       .catch(error => alert(error.message))
   }

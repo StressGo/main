@@ -6,8 +6,8 @@ import AppText from './AppText';
 function Card({title, subTitle, image, onPress}) {
     // you cqan use View as a container to put styles onto certain components
     return (
-        <TouchableOpacity>
-            <View style = {styles.card} onPress = {onPress}>
+        <TouchableOpacity onPress = {onPress}>
+            <View style = {styles.card} >
                 <Image style= {styles.image} source= {image} />
                 <View style = {styles.detailsContainer}> 
                     <AppText style = {styles.title}>{title}</AppText>

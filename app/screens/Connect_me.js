@@ -2,9 +2,12 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet, Text, onPress } from 'react-native'
 import Screen from '../components/Screen';
 import colors from '../config/colors';
+import { useNavigation } from '@react-navigation/core';
 
 
 function EventsGo_main(props) {
+    const navigation = useNavigation()
+
     return (
         
         <View>
@@ -15,7 +18,9 @@ function EventsGo_main(props) {
                     </Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={onPress}>
+            <TouchableOpacity onPress={() => {
+                      navigation.replace("EventsPage")
+                }}>
                 <View style = {styles.secondary}>
                     <Text style = {styles.bottomButton} >
                         JOIN AN EVENT

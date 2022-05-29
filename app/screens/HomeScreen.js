@@ -3,10 +3,11 @@ import React, {useEffect, useState} from 'react'
 import { useNavigation } from '@react-navigation/core';
 import AppButton from '../components/AppButton' 
 import Card from '../components/Card'
+import AppText from '../components/AppText';
 
 import { signOut } from "firebase/auth";
 import { auth } from '../../firebase';
-import AppText from '../components/AppText';
+
 
 const HomeScreen = () => {
     const navigation = useNavigation()
@@ -18,6 +19,8 @@ const HomeScreen = () => {
         })
         .catch(error => alert(error.message))
     }
+
+    
   return (
         <View style={styles.container}>
           <ImageBackground
@@ -31,11 +34,16 @@ const HomeScreen = () => {
                     title={'Run'}
                     subTitle={'Ready for a run?'}
                     image = {require('../assets/running.jpg')}
+                    
                 />
                 <Card
                     title={'Connect Me'} 
                     subTitle={'Find like minded runners!'}
                     image={require('../assets/grouprun.jpg')}
+                    onPress = {() => {
+                      navigation.replace("Connect_me")
+                }}
+                    
                 />
           </View>
           <View style = {styles.button}>
