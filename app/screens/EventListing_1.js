@@ -1,13 +1,20 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native'
+import { View, StyleSheet, Image, Text, onPress } from 'react-native'
 import AppText from '../components/AppText';
 import Profile from '../components/Profile';
 import colors from '../config/colors';
+import {MaterialCommunityIcons} from '@expo/vector-icons'
 
 function EventsListing_1(props) {
     return (
         <View>
             <Image style = {styles.image} source = {require('../assets/Nike_KL_Run.jpg')} />
+            <View style = {styles.backIcon}>
+                    <MaterialCommunityIcons name='arrow-left-bold' 
+                    color="white" 
+                    size={35}
+                    onPress={onPress} />
+            </View>
             <View style = {styles.detailsContainer}>
                 <AppText style = {styles.title}>Runners Zoom at Nike's First 21K We Run Kuala Lumpur Race</AppText>
                 <AppText style = {styles.pricing}>$50/pax</AppText>
@@ -19,7 +26,7 @@ function EventsListing_1(props) {
                     />
                 </View>
             </View>
-            <Text style = {{padding: 20}}>
+            <Text style = {{padding: 20, bottom: 50}}>
             On Feb. 1, a field of 8,000 athletes raced toward their personal bests at Nike’s We Run Kuala Lumpur 21K. For the first time, the race featured a 21K distance, making it one of four cities to host a half-marathon distance in the global Nike We Run Race Series, which aims to inspire athletes to push themselves beyond their limits and unleash their potential.
             </Text>
         </View>
@@ -33,6 +40,7 @@ const styles = StyleSheet.create({
     },
     detailsContainer: {
         padding: 20,
+        bottom: 40,
     },
     title: {
         fontSize: 24,
@@ -45,6 +53,10 @@ const styles = StyleSheet.create({
     },
     Profile: {
         padding: 30,
+    },
+    backIcon: {
+        bottom: 280,
+        left: 10,
     }
 })
 

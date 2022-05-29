@@ -4,6 +4,7 @@ import colors from '../config/colors';
 import AppButton from '../components/AppButton' 
 import { useNavigation } from '@react-navigation/core';
 /* firebase */
+import {MaterialCommunityIcons} from '@expo/vector-icons'
 
 import { auth } from '../../firebase'
 import { signInWithEmailAndPassword,createUserWithEmailAndPassword } from "firebase/auth";

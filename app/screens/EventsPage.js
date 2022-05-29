@@ -15,7 +15,7 @@ function EventsPage(props) {
                 blurRadius={8}
             >   
             <View style = {styles.closeIcon}>
-                <MaterialCommunityIcons name='close' color="black" size={35} />
+                <MaterialCommunityIcons name='arrow-left-bold' color="black" size={35} />
             </View>
             <View style = {styles.searchIcon}>
                 <MaterialCommunityIcons name='magnify' color="black" size={35} />
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     },
     closeIcon: {
         paddingLeft: 10,
-        paddingTop: 15,
+        paddingTop: 30,
     }, 
     searchIcon: {
         paddingLeft: 10,

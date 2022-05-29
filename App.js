@@ -7,7 +7,8 @@ import EventsGo_pg1 from './app/screens/Connect_me';
 import EventsListing_1 from './app/screens/EventListing_1';
 import EventsPage from './app/screens/EventsPage';
 import Connect_me from './app/screens/Connect_me';
- 
+import Found_runner from './app/screens/Found_Runner';
+import RegistrationPage from './app/screens/RegistrationPage';
 
 const Stack = createNativeStackNavigator();
 

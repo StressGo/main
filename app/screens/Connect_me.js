@@ -3,31 +3,43 @@ import { View, TouchableOpacity, StyleSheet, Text, onPress } from 'react-native'
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import { useNavigation } from '@react-navigation/core';
+import {MaterialCommunityIcons} from '@expo/vector-icons'
 
 
 function EventsGo_main(props) {
     const navigation = useNavigation()
 
     return (
-        
+        <Screen>
         <View>
-            <TouchableOpacity onPress={onPress}>
+            
+            
                 <View style = {styles.primary}>
+                <View style = {styles.backIcon}>
+                    <MaterialCommunityIcons name='arrow-left-bold' 
+                    color="white" 
+                    size={35}
+                    onPress={onPress} />
+                </View>
+                <TouchableOpacity onPress={onPress}>
                     <Text style = {styles.topButton} >
                         RUNNERS NEAR ME
                     </Text>
+                 </TouchableOpacity>
                 </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
+            
+                <View style = {styles.secondary}>
+                <TouchableOpacity onPress={() => {
                       navigation.replace("EventsPage")
                 }}>
-                <View style = {styles.secondary}>
                     <Text style = {styles.bottomButton} >
                         JOIN AN EVENT
                     </Text>
+                </TouchableOpacity>
                 </View>
-            </TouchableOpacity>
+            
         </View>
+        </Screen>
         
     );
 }
@@ -36,26 +48,30 @@ const styles = StyleSheet.create({
     primary: {
         backgroundColor: colors.primary,
         justifyContent: 'center',
-        height: 400, //unable to use flex
+        height: 380, //unable to use flex
     }, 
     secondary: {
         backgroundColor: colors.secondary,
         justifyContent: 'center',
-        height: 410, //unable to use flex
+        height: 400, //unable to use flex
     },
     topButton: {
         textAlign: 'center',
         fontSize: 65,
         fontWeight: 'bold',
         color: colors.white,
+        bottom: 20,
     },
     bottomButton: {
         textAlign: 'center',
         fontSize: 65,
         fontWeight: 'bold',
         color: colors.white,
-
-        
+        bottom: 20,
+    },
+    backIcon:{
+        bottom: 70,
+        paddingLeft: 15
     }
 })
 
