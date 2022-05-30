@@ -16,13 +16,19 @@ function RegistrationPage(props) {
   
   const navigation = useNavigation()
 
+
   const signUp = () => {
+    if (password1 === password2) {
     createUserWithEmailAndPassword(auth,email,password)
     .then(userInfo => {
       const user = userInfo.user;
+      navigation.replace("Home")
       console.log(user.email) //testing
     })
     .catch(error => alert(error.message))
+    } else {
+      console.log("wrong password")
+    }
   }
   
     return (
