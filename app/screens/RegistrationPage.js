@@ -19,7 +19,7 @@ function RegistrationPage(props) {
 
   const signUp = () => {
     if (password1 === password2) {
-    createUserWithEmailAndPassword(auth,email,password)
+    createUserWithEmailAndPassword(auth,email,password2)
     .then(userInfo => {
       const user = userInfo.user;
       navigation.replace("Home")
