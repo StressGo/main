@@ -47,7 +47,7 @@ function WelcomeScreen() {
           source = {require('../assets/homepage.jpg')}>
             
             <Image 
-            source = {require('../assets/logo.png')}
+            source = {require('../assets/RunningGo.png')}
             style = {{
               alignSelf: 'center',
               height: 400,
