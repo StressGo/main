@@ -64,7 +64,8 @@ function WelcomeScreen() {
           placeholder="Password"
           value={password}
           onChangeText={text => setPassword(text)}
-          style={styles.input}>
+          style={styles.input}
+          secureTextEntry={true}>
           
          </TextInput>
       </View>
