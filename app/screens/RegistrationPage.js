@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
           position: 'absolute',
           bottom: 0,
           opacity: 1,
-          
         },
         bottom: {
           flex: 1,
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
         inputContainer: {
           width: '80%',
           alignSelf: 'center',
-          top: 150,
+          
         
         },
         input: {
@@ -131,6 +130,7 @@ const styles = StyleSheet.create({
             color: colors.white,
             top: 80,
             paddingLeft: 30,
+            paddingBottom: 120,
         }
 })
 
