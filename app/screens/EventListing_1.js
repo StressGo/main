@@ -4,8 +4,10 @@ import AppText from '../components/AppText';
 import Profile from '../components/Profile';
 import colors from '../config/colors';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/core';
 
 function EventsListing_1(props) {
+    const navigation = useNavigation()
     return (
         <View>
             <Image style = {styles.image} source = {require('../assets/Nike_KL_Run.jpg')} />
@@ -13,7 +15,9 @@ function EventsListing_1(props) {
                     <MaterialCommunityIcons name='arrow-left-bold' 
                     color="white" 
                     size={35}
-                    onPress={onPress} />
+                    onPress={() => {
+                        navigation.replace("EventsPage")
+                  }} />
             </View>
             <View style = {styles.detailsContainer}>
                 <AppText style = {styles.title}>Runners Zoom at Nike's First 21K We Run Kuala Lumpur Race</AppText>

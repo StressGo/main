@@ -15,7 +15,9 @@ function EventsPage(props) {
                 blurRadius={8}
             >   
             <View style = {styles.closeIcon}>
-                <MaterialCommunityIcons name='arrow-left-bold' color="black" size={35} />
+                <MaterialCommunityIcons name='arrow-left-bold' color="black" size={35} onPress={() => {
+                        navigation.replace("Connect_me")
+                  }} />
             </View>
             <View style = {styles.searchIcon}>
                 <MaterialCommunityIcons name='magnify' color="black" size={35} />

@@ -21,7 +21,9 @@ export default function App() {
       <Stack.Screen options = { {headerShown: false}} name ="Connect_me" component={Connect_me} /> 
       <Stack.Screen options = { {headerShown: false}} name ="EventsPage" component={EventsPage} /> 
       <Stack.Screen options = { {headerShown: false}} name ="EventsListing_1" component={EventsListing_1} /> 
-      </Stack.Navigator>
+      <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={Found_runner} /> 
+      <Stack.Screen options = { {headerShown: false}} name ="RegistrationPage" component={RegistrationPage} /> 
+    </Stack.Navigator>
     </NavigationContainer>
   );
   

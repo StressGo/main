@@ -19,9 +19,13 @@ function EventsGo_main(props) {
                     <MaterialCommunityIcons name='arrow-left-bold' 
                     color="white" 
                     size={35}
-                    onPress={onPress} />
+                    onPress={() => {
+                        navigation.replace("Home")
+                  }} />
                 </View>
-                <TouchableOpacity onPress={onPress}>
+                <TouchableOpacity onPress={() => {
+                      navigation.replace("Found_runner")
+                }}>
                     <Text style = {styles.topButton} >
                         RUNNERS NEAR ME
                     </Text>

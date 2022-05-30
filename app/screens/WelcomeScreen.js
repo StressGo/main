@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/core';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 
 import { auth } from '../../firebase'
-import { signInWithEmailAndPassword,createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword} from "firebase/auth";
 
 
 
@@ -26,14 +26,6 @@ function WelcomeScreen() {
     return unsubscribe
   },[])
 
-  const signUp = () => {
-    createUserWithEmailAndPassword(auth,email,password)
-    .then(userInfo => {
-      const user = userInfo.user;
-      console.log(user.email) //testing
-    })
-    .catch(error => alert(error.message))
-  }
 
   const login = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -43,6 +35,8 @@ function WelcomeScreen() {
       })
       .catch(error => alert(error.message))
   }
+
+ 
   return (
       <KeyboardAvoidingView
       style={styles.container}
@@ -78,7 +72,7 @@ function WelcomeScreen() {
       </View>
       <View style={styles.container}>
            <AppButton title = 'Login' onPress = {login} />
-           <AppButton title = 'Register' onPress = {signUp} />
+           <AppButton title = 'Register' onPress = {() => navigation.replace("RegistrationPage")} />
       </View>
           
         </ImageBackground> 

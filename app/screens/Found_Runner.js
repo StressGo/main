@@ -1,10 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text, ImageBackground } from 'react-native'
 import colors from '../config/colors';
+import {MaterialCommunityIcons} from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/core';
 
 function Found_runner(props) {
+    const navigation = useNavigation()
     return (
         <View>
+            <MaterialCommunityIcons name='arrow-left-bold' color="black" size={35} onPress={() => {
+                        navigation.replace("Connect_me")
+                  }} />
         <ImageBackground 
             source= {require('../assets/splash-page.jpg')}
             style = {{width: '100%', height : '100%'}}
