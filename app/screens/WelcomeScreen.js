@@ -38,9 +38,7 @@ function WelcomeScreen() {
 
  
   return (
-      <KeyboardAvoidingView
-      style={styles.container}
-      behavior="padding">
+      <View>
        <ImageBackground 
           style = {styles.imageContainer}
           blurRadius = {8}
@@ -77,7 +75,7 @@ function WelcomeScreen() {
           
         </ImageBackground> 
         
- </KeyboardAvoidingView>
+ </View>
         
     );
 }
