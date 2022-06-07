@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {KeyboardAvoidingView,ImageBackground, StyleSheet, View, Button, Image, TextInput } from "react-native"
 import colors from '../config/colors';
 import AppButton from '../components/AppButton' 
-import { useNavigation } from '@react-navigation/core';
+
 /* firebase */
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 
@@ -15,12 +15,11 @@ function WelcomeScreen() {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
 
-  const navigation = useNavigation()
   
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
-        navigation.replace("Home")
+        navigation.replace("Home")//Welcome screen navigate to homescreen
       }
     })
     return unsubscribe
@@ -71,7 +70,7 @@ function WelcomeScreen() {
       </View>
       <View style={styles.container}>
            <AppButton title = 'Login' onPress = {login} />
-           <AppButton title = 'Register' onPress = {() => navigation.replace("RegistrationPage")} />
+           <AppButton title = 'Register' onPress = {onPress} />
       </View>
           
         </ImageBackground> 

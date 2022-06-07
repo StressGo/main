@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, ImageBackground } from 'react-native'
 import React, {useEffect, useState} from 'react'
-import { useNavigation } from '@react-navigation/core';
 import AppButton from '../components/AppButton' 
 import Card from '../components/Card'
 import AppText from '../components/AppText';
@@ -10,12 +9,11 @@ import { auth } from '../../firebase';
 
 
 const HomeScreen = () => {
-    const navigation = useNavigation()
 
     const handleSignOut = () => {
       signOut(auth)
-        .then(() => {
-          navigation.replace("login")
+        .then(() => { //try catch block
+          navigation.replace("login") //When sign out, brings back to login page
         })
         .catch(error => alert(error.message))
     }
@@ -28,7 +26,7 @@ const HomeScreen = () => {
           blurRadius = {8}
           style = {styles.imageContainer}
             >
-          <Text style = {styles.text} >Hello, {auth.currentUser.email} </Text>
+          <Text style = {styles.text} >Hello, Benjy</Text> 
           <View>
                 <Card 
                     title={'Run'}
@@ -41,7 +39,7 @@ const HomeScreen = () => {
                     subTitle={'Find like minded runners!'}
                     image={require('../assets/grouprun.jpg')}
                     onPress = {() => {
-                      navigation.replace("Connect_me")
+                      navigation.replace("Connect_me") // go to connect me screen
                 }}
                     
                 />
