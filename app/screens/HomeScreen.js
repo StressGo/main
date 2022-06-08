@@ -3,12 +3,17 @@ import React, {useEffect, useState} from 'react'
 import AppButton from '../components/AppButton' 
 import Card from '../components/Card'
 import AppText from '../components/AppText';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 import { signOut } from "firebase/auth";
 import { auth } from '../../firebase';
+import Tabs from '../../navigation/tabs';
+
 
 
 const HomeScreen = () => {
+
+  const navigation = useNavigation();
 
     const handleSignOut = () => {
       signOut(auth)
@@ -20,7 +25,9 @@ const HomeScreen = () => {
 
     
   return (
+    
         <View style={styles.container}>
+          
           <ImageBackground
           source = {require('../assets/splash-page.jpg')}
           blurRadius = {8}
@@ -49,7 +56,7 @@ const HomeScreen = () => {
           </View>
           </ImageBackground>
         </View>
-     
+    
   )
 }
 

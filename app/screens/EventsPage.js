@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ImageBackground } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native'
 import Card from '../components/Card';
 import colors from '../config/colors';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/core';
 function EventsPage(props) {
     const navigation = useNavigation()
     return (
-        <View style = {styles.container}>
+        <ScrollView style = {styles.container}>
             <ImageBackground
                 source = {require('../assets/splash-page.jpg')}
                 style = {{width: '100%', height: '100%'}}
@@ -49,7 +49,7 @@ function EventsPage(props) {
             />
             </View>
             </ImageBackground>
-        </View>
+        </ScrollView>
     );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text, onPress } from 'react-native'
+import { View, StyleSheet, Image, Text, onPress, ScrollView } from 'react-native'
 import AppText from '../components/AppText';
 import Profile from '../components/Profile';
 import colors from '../config/colors';
@@ -10,6 +10,7 @@ function EventsListing_1(props) {
     const navigation = useNavigation()
     return (
         <View>
+            
             <Image style = {styles.image} source = {require('../assets/Nike_KL_Run.jpg')} />
             <View style = {styles.backIcon}>
                     <MaterialCommunityIcons name='arrow-left-bold' 
@@ -33,6 +34,7 @@ function EventsListing_1(props) {
             <Text style = {{padding: 20, bottom: 50}}>
             On Feb. 1, a field of 8,000 athletes raced toward their personal bests at Nike’s We Run Kuala Lumpur 21K. For the first time, the race featured a 21K distance, making it one of four cities to host a half-marathon distance in the global Nike We Run Race Series, which aims to inspire athletes to push themselves beyond their limits and unleash their potential.
             </Text>
+            
         </View>
     );
 }
