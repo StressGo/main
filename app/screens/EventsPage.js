@@ -49,7 +49,13 @@ function EventsPage(props) {
             />
             </View>
             </ImageBackground>
+            <Text></Text>
+            <Text></Text>
+            <Text></Text>
+            <Text></Text> 
+            <Text></Text>
         </ScrollView>
+        // trolling
     );
 }
 

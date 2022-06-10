@@ -52,7 +52,6 @@ const HomeScreen = () => {
                 />
           </View>
           <View style = {styles.button}>
-            <AppButton title = 'Sign out' onPress = {handleSignOut} />
           </View>
           </ImageBackground>
         </View>
@@ -68,6 +67,7 @@ const styles = StyleSheet.create({
   },
   text: {
     padding: 30,
+    paddingTop: 60,
     fontSize: 30,
     fontFamily: "Roboto",
     fontWeight: 'bold'

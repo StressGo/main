@@ -16,7 +16,7 @@ function UserProfile(props) {
     const handleSignOut = () => {
         signOut(auth)
           .then(() => { //try catch block
-            navigation.replace('WelcomeScreen') //When sign out, brings back to login page
+            navigation.replace('login') //When sign out, brings back to login page
           })
           .catch(error => alert(error.message))
     }
@@ -24,11 +24,15 @@ function UserProfile(props) {
     return (
         
         <ScrollView>
+            <Image source = {require('../assets/nike.jpg')} style = {styles.image} />
             <View>
                 <View style = {styles.profileImageContainer}>
                 <Image source = {require('../assets/Mr_Aaron.jpg')} style = {styles.profileImage}/> 
-                <Text style = {{paddingTop: 30}}>My name is Aaron, just Aaron</Text>
-                <AppButton title = 'Sign out' onPress = {handleSignOut} />
+                <Text style = {styles.text}>My name is Aaron, Aaron Jaeger</Text>
+                <View style = {styles.buttonContainer}>
+                    <AppButton title = 'Sign out' onPress = {handleSignOut} />
+                    <AppButton title = 'Edit' onPress = {handleSignOut} />
+                </View>
                 </View>
                 <View style = {styles.cardContainer}>
                     <Card 
@@ -54,8 +58,12 @@ function UserProfile(props) {
                         subTitle={'Wait what..?'}
                         image={require('../assets/Nike_KL_Run.jpg')}
                     />
+                    <Text></Text>
+                    <Text></Text>
+                    <Text></Text>
+                    <Text></Text> 
+                    <Text></Text>
                 </View>
-                
             </View>
             
         </ScrollView>
@@ -72,14 +80,26 @@ const styles = StyleSheet.create({
         
     },
     profileImageContainer:{
-        paddingBottom: 100,
-        paddingTop: 200,
+        paddingBottom: 30,
+        bottom: 50,
         alignItems: 'center',
     },
     cardContainer: {
         width: '95%',
         alignSelf: 'center'
     },
+    buttonContainer: {
+        paddingTop: 25,
+        flexDirection: 'row-reverse'
+    },
+    image: {
+        height: 220,
+        width: '100%'
+    },
+    text: {
+        alignSelf: 'center',
+        paddingTop: 30,
+    }
 })
 
 export default UserProfile;
