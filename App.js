@@ -6,6 +6,7 @@ import WelcomeScreen from './app/screens/WelcomeScreen';
 import HomeScreen from './app/screens/HomeScreen';
 import RegistrationPage from './app/screens/RegistrationPage';
 
+import Map from './app/screens/Map';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ const App = () => {
         <Stack.Screen options = { {headerShown: false}} name ="tabs" component={Tabs} /> 
       </Stack.Navigator>
     </NavigationContainer>
+  
   );
 }
 
