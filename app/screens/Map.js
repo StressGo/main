@@ -1,9 +1,10 @@
 import React,{useEffect,useState} from 'react'
 import MapView, {Marker, Callout} from 'react-native-maps'
-import {View,Text,TouchableOpacity, Stylesheet} from "react-native"
+import {View,Text,TouchableOpacity, Image, StyleSheet} from "react-native"
 import AppButton from '../components/AppButton' 
 
 import * as Location from "expo-location"
+import colors from '../config/colors'
 
 const Map = () => {
   const [startLocation,setstartLocation] = useState({
@@ -33,8 +34,9 @@ const Map = () => {
 
 
   return (
+    <View >
     <MapView
-        style={{ alignSelf: 'stretch', height: '100%' }}
+        style={styles.Map}
         region={startLocation}
       >
     <Marker coordinate={startLocation} title='Marker' >
@@ -42,7 +44,12 @@ const Map = () => {
     <Text> Starting Point </Text>
     </Callout>
     </Marker>
+    
+    <Image style={styles.image}/>
+    
     </MapView>
+    
+    </View>
 
 /* <View>
 {hasStarted 
@@ -52,5 +59,21 @@ const Map = () => {
 </View> */
   )
 }
+
+const styles = StyleSheet.create({
+  image:{
+    backgroundColor: colors.primary,
+    height: '55%',
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    opacity: 0.95,
+    top: '55%',
+  },
+  Map:{
+    alignSelf: 'stretch', 
+    height: '100%'
+  },
+  
+})
 
 export default Map
