@@ -1,12 +1,13 @@
 import React,{useEffect,useState} from 'react'
-import MapView from 'react-native-maps'
-import  Marker  from 'react-native-maps'
-import  Callout from 'react-native-maps'
-import * as Location from "expo-location"
+import MapView, {Marker, Callout} from 'react-native-maps'
 import {View,Text,TouchableOpacity, Stylesheet} from "react-native"
+import AppButton from '../components/AppButton' 
+
+import * as Location from "expo-location"
 
 const Map = () => {
   const [startLocation,setstartLocation] = useState('');
+  const [hasStarted,sethasStarted] = useState(false);
   
   useEffect(() => {
     async () => {
@@ -17,12 +18,10 @@ const Map = () => {
       }
       let newLocation = await Location.getCurrentPositionAsync({});
       setstartLocation({
-        region: {
-         latitude: location.coords.latitude,
-         longitude: location.coords.longitude,
+         latitude: newLocation.coords.latitude,
+         longitude: newLocation.coords.longitude,
          latitudeDelta: 0.0922,
          longitudeDelta: 0.0421,
-        },
        });
     };
   }, []);
@@ -39,6 +38,13 @@ const Map = () => {
     </Callout>
     </Marker>
     </MapView>
+
+/* <View>
+{hasStarted 
+  ? <AppButton title = "Stop Tracking" onPress={stopLocation} />
+  : <AppButton title = "Start Tracking" onPress={startLocation} />
+}
+</View> */
   )
 }
 
