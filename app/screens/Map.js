@@ -6,11 +6,16 @@ import AppButton from '../components/AppButton'
 import * as Location from "expo-location"
 
 const Map = () => {
-  const [startLocation,setstartLocation] = useState('');
+  const [startLocation,setstartLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+});
   const [hasStarted,sethasStarted] = useState(false);
   
   useEffect(() => {
-    async () => {
+    (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         console.log('Permission to access location was denied'); // testing
@@ -23,7 +28,7 @@ const Map = () => {
          latitudeDelta: 0.0922,
          longitudeDelta: 0.0421,
        });
-    };
+    })();
   }, []);
 
 
@@ -32,11 +37,11 @@ const Map = () => {
         style={{ alignSelf: 'stretch', height: '100%' }}
         region={startLocation}
       >
-    <Marker coordinate={startLocation} title='Marker' >
+      <Marker coordinate={startLocation} title='Marker' >
     <Callout> 
     <Text> Starting Point </Text>
-    </Callout>
-    </Marker>
+    </Callout> 
+    </Marker>  
     </MapView>
 
 /* <View>
@@ -45,7 +50,7 @@ const Map = () => {
   : <AppButton title = "Start Tracking" onPress={startLocation} />
 }
 </View> */
-  )
+  );
 }
 
 export default Map
