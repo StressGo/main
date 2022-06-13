@@ -15,7 +15,7 @@ const Map = () => {
   const [hasStarted,sethasStarted] = useState(false);
   
   useEffect(() => {
-    async () => {
+    (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         console.log('Permission to access location was denied'); // testing
@@ -28,7 +28,7 @@ const Map = () => {
          latitudeDelta: 0.0922,
          longitudeDelta: 0.0421,
        });
-    };
+    })();
   }, []);
 
 
