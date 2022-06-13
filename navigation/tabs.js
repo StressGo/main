@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import EventsPage from "../app/screens/EventsPage";
 import HomeScreen from "../app/screens/HomeScreen";
 import Connect_me from "../app/screens/Connect_me"
-import Run from "../app/screens/Run";
+import Map from "../app/screens/Map";
 import UserProfile from "../app/screens/UserProfile";
 import colors from "../app/config/colors";
 
@@ -85,7 +85,7 @@ const Tabs = () => {
                 ),
             }} 
             />
-            <Tab.Screen name = "Run" component={Run} 
+            <Tab.Screen name = "Run" component={Map} 
                 options={{
                     tabBarIcon: ({focused}) => (
                         <Image 

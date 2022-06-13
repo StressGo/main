@@ -1,5 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import MapView from 'react-native-maps'
+import  Marker  from 'react-native-maps'
+import  Callout from 'react-native-maps'
 import * as Location from "expo-location"
 import {View,Text,TouchableOpacity, Stylesheet} from "react-native"
 
@@ -29,9 +31,9 @@ const Map = () => {
   return (
     <MapView
         style={{ alignSelf: 'stretch', height: '100%' }}
-        region={location}
+        region={startLocation}
       >
-    <Marker coordinate={location} title='Marker' >
+    <Marker coordinate={startLocation} title='Marker' >
     <Callout> 
     <Text> Starting Point </Text>
     </Callout>
