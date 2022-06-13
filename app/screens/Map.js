@@ -6,7 +6,12 @@ import AppButton from '../components/AppButton'
 import * as Location from "expo-location"
 
 const Map = () => {
-  const [startLocation,setstartLocation] = useState('');
+  const [startLocation,setstartLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+    latitude: 0.0922,
+    longitudeDelta: 0.0421,
+  });
   const [hasStarted,sethasStarted] = useState(false);
   
   useEffect(() => {
