@@ -1,24 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import { Text, View, KeyboardAvoidingView, ImageBackground, TextInput, StyleSheet, Image, onPress } from 'react-native'
+import {TouchableOpacity, Text, View, KeyboardAvoidingView, ImageBackground, TextInput, StyleSheet, Image, onPress } from 'react-native'
 import AppButton from '../components/AppButton';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import colors from '../config/colors';
 import { useNavigation } from '@react-navigation/core';
+import UserPermissions from '../../utilities/UserPermissions';
+import * as ImagePicker from 'expo-image-picker';
 
 import { auth } from '../../firebase'
 import { createUserWithEmailAndPassword } from "firebase/auth"
+
 
 function RegistrationPage(props) {
   const [email,setEmail] = useState('')
   const [password1,setPassword1] = useState('')
   const [password2,setPassword2] = useState('')
   const [username,setUsername] = useState('')
+  const [avatar, setAvatar] = useState(null)
   
   const navigation = useNavigation()
 
 
   const signUp = () => {
     if (password1 === password2) {
+    
     createUserWithEmailAndPassword(auth,email,password2)
     .then(userInfo => {
       const user = userInfo.user;
@@ -30,6 +35,22 @@ function RegistrationPage(props) {
       console.log("wrong password")
     }
   }
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setAvatar(result.uri);
+    }
+  };
   
     return (
         <KeyboardAvoidingView
@@ -45,12 +66,26 @@ function RegistrationPage(props) {
                     size={35}
                     onPress={() => navigation.replace("login")} />
         </View>
-        <Text style = {styles.registrationText}>
-            Create New Account
-        </Text>
+        <View>
+            <Text style = {styles.registrationTextTop}>Hello!</Text>
+            <Text style = {styles.registrationTextBottom}>Sign up to get started!</Text>
+        </View>
+
+        <View style = {styles.AddProfilePicContainer}>
+        <TouchableOpacity style = {styles.avatarPlaceholder} onPress={pickImage}>
+          {avatar == null && <Image 
+            source = {require('../assets/AddProfilePic.png')}
+            style = {styles.AddProfilePic}  />}
+          {avatar != null && <Image 
+            source = {{ uri: avatar }}
+            style = {styles.AddProfilePic}
+          />}
+        </TouchableOpacity>
+        </View>
+        
             
-            <View style={styles.inputContainer}>
-        <TextInput
+        <View style={styles.inputContainer}>
+          <TextInput
             placeholder = "Username" 
             style = {styles.input}
             value = {username}
@@ -124,13 +159,38 @@ const styles = StyleSheet.create({
             top: 40,
             paddingLeft: 15
         },
-        registrationText:{
-            fontSize: 60,
+        registrationTextTop:{
+            fontSize: 30,
             fontWeight: 'bold',
             color: colors.white,
-            top: 80,
+            top: 60,
             paddingLeft: 30,
-            paddingBottom: 120,
+            alignContent: 'center',
+        },
+        registrationTextBottom: {
+          fontSize: 30,
+            fontWeight: 'bold',
+            color: colors.white,
+            top: 60,
+            paddingLeft: 30,
+            paddingBottom: 100,
+            alignContent: 'center',
+        },
+        AddProfilePic: {
+          alignSelf:'center',
+          height: 150,
+          width: 150,
+          borderRadius: 79,
+        },
+        AddProfilePicContainer: {
+          paddingBottom: 30,
+        },
+        avatarPlaceholder:{
+          width: 150,
+          height: 150,
+          borderRadius: 79,
+          alignSelf: 'center',
+        
         }
 })
 

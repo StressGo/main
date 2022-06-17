@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
     opacity: 0.95,
-    top: '55%',
+    top: '60%'
   },
   Map:{
     alignSelf: 'stretch', 
