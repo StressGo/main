@@ -21,6 +21,7 @@ const App = () => {
     //   </Stack.Navigator>
     // </NavigationContainer>
     <Map />
+    
   );
 }
 
