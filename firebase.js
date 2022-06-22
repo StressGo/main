@@ -2,6 +2,7 @@
 // import all functions needed from the SDKS needed
 import {initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 
 const FIREBASE_APIKEY="AIzaSyD1Hk1asVux06fU55J3FaaYfyIUI4sM1B4"
@@ -26,9 +27,8 @@ const firebaseConfig = {
 
 
   const app = initializeApp(firebaseConfig)
-  const auth = getAuth(app);
-  const firestore = firebase.firestore;
+  export const auth = getAuth(app);
+  export const db = getFirestore(app);
   
-  export default auth
 
 
