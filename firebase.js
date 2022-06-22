@@ -1,6 +1,6 @@
 
 // import all functions needed from the SDKS needed
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
 import {initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDocs, getFireStore, collection } from 'firebase/firestore'
@@ -23,21 +23,21 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig)
 
   // init services
-  const db = getFireStore()
+  // const db = getFireStore()
 
-  // collection ref
-  const colRef = collection(db, 'events')
+  // // collection ref
+  // const colRef = collection(db, 'events')
 
   // get collection data
-  getDocs(colRef).then((snapshot) => {
-    let events = []
-    snapshot.docs.forEach((doc) => {
-      events.push({ ...doc.data(), id: doc.id })
-    })
-  })
-  .catch(err => {
-    console.log(err.message)
-  })
+  // getDocs(colRef).then((snapshot) => {
+  //   let events = []
+  //   snapshot.docs.forEach((doc) => {
+  //     events.push({ ...doc.data(), id: doc.id })
+  //   })
+  // })
+  // .catch(err => {
+  //   console.log(err.message)
+  // })
 
   export const auth = getAuth(app);
 
