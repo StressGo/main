@@ -17,6 +17,7 @@ const App = () => {
         <AuthStack.Screen options = { {headerShown: false}} name ="login" component={WelcomeScreen} />
         <AuthStack.Screen options = { {headerShown: false}} name ="Register" component={RegistrationPage} /> 
         <AuthStack.Screen options = { {headerShown: false}} name ="tabs" component={Tabs} /> 
+        <AuthStack.Screen options = { {headerShown: false}} name ="edit" component={ImagePickerExample} />
       </AuthStack.Navigator>
     </NavigationContainer>
   
