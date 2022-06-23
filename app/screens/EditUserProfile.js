@@ -3,6 +3,7 @@ import { View, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import colors from '../config/colors';
 import { useNavigation } from '@react-navigation/core';
+import {Permissions} from 'expo'
 
 import * as ImagePicker from 'expo-image-picker';
 import UserPermissions from '../../utilities/UserPermissions';
@@ -24,22 +25,48 @@ function EditUserProfile(props) {
      const [avatar, setAvatar] = useState(null)
      const [loading, setLoading] = useState(false);
      const [transferred, setTransferred] = useState(0);
+     const [hasPermission, setHasPermission] = useState(null);
+
+     useEffect(() => {
+        (async () => {
+            const {status} = await ImagePicker.requestPermissionsAsync();
+            setHasPermission(status === "granted");
+
+            if (Platform.OS !== "web") {
+                const {status} = 
+                    await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !=="granted"){
+                    alert("Sorry, we need permissions!")
+                }
+
+            }
+        })();
+     }, [])
+
 
      const pickImage = async () => {
-         // No permissions request is necessary for launching the image library
-         let result = await ImagePicker.launchImageLibraryAsync({
-           mediaTypes: ImagePicker.MediaTypeOptions.All,
-           allowsEditing: true,
-           aspect: [4, 3],
-           quality: 1,
-         });
+        // No permissions request is necessary for launching the image library
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (permissionResult.granted === false) {
+          alert("Permission to access camera roll is required!");
+          return;
+        }
+    
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+    
+        console.log(result);
+    
+        if (!result.cancelled) {
+          setAvatar(result.uri);
+        }
+      };
      
-         console.log(result);
-     
-         if (!result.cancelled) {
-           setAvatar(result.uri);
-         }
-       };
 
 
       function handleChange(e) {
@@ -77,10 +104,13 @@ function EditUserProfile(props) {
             />}
             </TouchableOpacity>
             </View>
-            <AppButton title = 'Upload' onPress = {handleClick} />
+            <View style = {styles.button}>
+                <AppButton title = 'Upload' onPress = {handleClick} />
+            </View>
         </View>
     );
-}
+
+    };
 
 const styles = StyleSheet.create({
     AddProfilePic: {
@@ -103,6 +133,9 @@ const styles = StyleSheet.create({
         top: 40,
         paddingLeft: 15
     },
+    button: {
+        top: 300,
+    }
 })
 
 export default EditUserProfile;
