@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/core';
 import {Permissions} from 'expo'
 
 import * as ImagePicker from 'expo-image-picker';
-import UserPermissions from '../../utilities/UserPermissions';
 
 import { auth, useAuth, upload } from '../../firebase'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
