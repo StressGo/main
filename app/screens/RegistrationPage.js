@@ -4,11 +4,11 @@ import AppButton from '../components/AppButton';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import colors from '../config/colors';
 import { useNavigation } from '@react-navigation/core';
-import UserPermissions from '../../utilities/UserPermissions';
-import * as ImagePicker from 'expo-image-picker';
 
-import { auth } from '../../firebase'
-import { createUserWithEmailAndPassword } from "firebase/auth"
+
+
+import { auth, getAuth } from '../../firebase'
+import { createUserWithEmailAndPassword, updateCurrentUser } from "firebase/auth"
 
 
 function RegistrationPage(props) {
@@ -16,7 +16,7 @@ function RegistrationPage(props) {
   const [password1,setPassword1] = useState('')
   const [password2,setPassword2] = useState('')
   const [username,setUsername] = useState('')
-  const [avatar, setAvatar] = useState(null)
+  
   
   const navigation = useNavigation()
 
@@ -36,22 +36,9 @@ function RegistrationPage(props) {
     }
   }
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
 
-    console.log(result);
 
-    if (!result.cancelled) {
-      setAvatar(result.uri);
-    }
-  };
-  
+
     return (
         <KeyboardAvoidingView
       style={styles.container}
@@ -71,17 +58,6 @@ function RegistrationPage(props) {
             <Text style = {styles.registrationTextBottom}>Sign up to get started!</Text>
         </View>
 
-        <View style = {styles.AddProfilePicContainer}>
-        <TouchableOpacity style = {styles.avatarPlaceholder} onPress={pickImage}>
-          {avatar == null && <Image 
-            source = {require('../assets/AddProfilePic.png')}
-            style = {styles.AddProfilePic}  />}
-          {avatar != null && <Image 
-            source = {{ uri: avatar }}
-            style = {styles.AddProfilePic}
-          />}
-        </TouchableOpacity>
-        </View>
         
             
         <View style={styles.inputContainer}>

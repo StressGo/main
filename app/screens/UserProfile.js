@@ -5,13 +5,15 @@ import Card from '../components/Card';
 import AppButton from '../components/AppButton';
 import WelcomeScreen from '../screens/WelcomeScreen';
 
-import { signOut } from "firebase/auth";
-import { auth } from '../../firebase';
+import { signOut, updateCurrentUser } from "firebase/auth";
+import { auth, useAuth } from '../../firebase';
 import { useNavigation } from '@react-navigation/native';
 
 function UserProfile(props) {
 
     const navigation = useNavigation();
+    const currentUser = useAuth();
+    console.log(currentUser);
 
     const handleSignOut = () => {
         signOut(auth)
@@ -20,6 +22,7 @@ function UserProfile(props) {
           })
           .catch(error => alert(error.message))
     }
+
 
     return (
         
@@ -31,7 +34,7 @@ function UserProfile(props) {
                 <Text style = {styles.text}>My name is Aaron, Aaron Jaeger</Text>
                 <View style = {styles.buttonContainer}>
                     <AppButton title = 'Sign out' onPress = {handleSignOut} />
-                    <AppButton title = 'Edit' onPress = {handleSignOut} />
+                    <AppButton title = 'Edit' onPress = {() => navigation.replace("edit")} />
                 </View>
                 </View>
                 <View style = {styles.cardContainer}>

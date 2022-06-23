@@ -2,8 +2,10 @@
 // import all functions needed from the SDKS needed
 import firebase from 'firebase/app';
 import {initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
 import { getDocs, getFireStore, collection } from 'firebase/firestore'
+import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage"
+import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
+import React, {useEffect, useState} from 'react';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -19,26 +21,37 @@ const firebaseConfig = {
 
 
 
-  // init firebase app
-  const app = initializeApp(firebaseConfig)
+// init firebase app
+const app = initializeApp(firebaseConfig)
+const storage = getStorage();
 
-  // init services
-  // const db = getFireStore()
+//storage
+//use async because uploading takes time
+export async function upload(file, currentUser, setLoading){
+  const fileRef = ref(storage, currentUser.uid + '.png');
 
-  // // collection ref
-  // const colRef = collection(db, 'events')
+  setLoading(true);
 
-  // get collection data
-  // getDocs(colRef).then((snapshot) => {
-  //   let events = []
-  //   snapshot.docs.forEach((doc) => {
-  //     events.push({ ...doc.data(), id: doc.id })
-  //   })
-  // })
-  // .catch(err => {
-  //   console.log(err.message)
-  // })
+  const snapshot = await uploadBytes(fileRef, file);
 
-  export const auth = getAuth(app);
+  const photoURL = await getDownloadURL(fileRef)
+  updateProfile(currentUser, {photoURL});
+
+  setLoading(false);
+  alert("uploaded file!")
+}
+
+export const auth = getAuth(app);
+
+export function useAuth() {
+  const [currentUser, setCurrentUser] = useState();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, user => setCurrentUser(user));
+    return unsub;
+  }, [])
+
+  return currentUser;
+}
 
 
