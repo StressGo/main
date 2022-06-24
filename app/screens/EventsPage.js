@@ -1,13 +1,41 @@
-import React from 'react';
+import React, { useState, setState } from 'react';
 import { View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native'
 import Card from '../components/Card';
 import colors from '../config/colors';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/core';
 
+import { firestore, collection, doc, getDoc } from 'firebase/firestore';
+
+import {db} from '../../firebase';
+
+// 6m x 2.5m
+
+//run: 1
+//swim: 2
+//cycle: 3
+
 function EventsPage(props) {
     const navigation = useNavigation()
+
+    const eventRef = db.collection('events').doc('event1');
+    const snapshot = eventRef.get();
+    snapshot.then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+    
+    
+    
+    
+
     return (
+
         <ScrollView style = {styles.container}>
             <ImageBackground
                 source = {require('../assets/splash-page.jpg')}
@@ -22,7 +50,7 @@ function EventsPage(props) {
             <View style = {styles.searchIcon}>
                 <MaterialCommunityIcons name='magnify' color="black" size={35} />
             </View>
-            <Text style = {styles.text}>EVENTS</Text>
+        <Text style = {styles.text}>EVENTS</Text>
             <View style = {styles.cardContainer}>
             <Card 
                 title={'NIKE RUN'}
@@ -32,21 +60,7 @@ function EventsPage(props) {
                     navigation.replace("EventsListing_1")
               }}
             />
-            <Card 
-                title={'ADIDAS RUN'}
-                subTitle={'Impossible to run'}
-                image={require('../assets/Nike_KL_Run.jpg')}
-            />
-            <Card 
-                title={'ASICS RUN'}
-                subTitle={'What is Asics?'}
-                image={require('../assets/Nike_KL_Run.jpg')}
-            />
-            <Card 
-                title={'Gucci RUN'}
-                subTitle={'Wait what..?'}
-                image={require('../assets/Nike_KL_Run.jpg')}
-            />
+            
             </View>
             </ImageBackground>
             <Text></Text>
