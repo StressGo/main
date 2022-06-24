@@ -1,7 +1,14 @@
 
 // import all functions needed from the SDKS needed
+import { firebase } from "@react-native-firebase/auth";
 import {initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+
+
+import {
+  getFirestore, collection, getDocs,
+  addDoc,
+} from 'firebase/firestore'
 
 
 const FIREBASE_APIKEY="AIzaSyD1Hk1asVux06fU55J3FaaYfyIUI4sM1B4"
@@ -26,6 +33,9 @@ const firebaseConfig = {
 
 
   const app = initializeApp(firebaseConfig)
-  export const auth = getAuth(app);
 
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  export {auth, db}
 
