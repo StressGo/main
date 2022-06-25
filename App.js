@@ -21,6 +21,7 @@ const App = () => {
          <AuthStack.Screen options = { {headerShown: false}} name ="tabs" component={Tabs} /> 
        </AuthStack.Navigator>
      </NavigationContainer>
+    
   );
 }
 
