@@ -3,11 +3,16 @@ import MapView, {Marker, Callout,Polyline} from 'react-native-maps'
 import {SafeAreaView, View,Text,TouchableOpacity, Image, StyleSheet} from "react-native"
 import AppButton from '../components/AppButton' 
 import showTime , {getDayname, getTimeOfDay, calculatePace,calculateDistance} from '../constants/Calculations'
+import SummaryScreen from './SummaryScreen'
 
 import * as Location from "expo-location"
 import colors from '../config/colors'
+import { useNavigation } from '@react-navigation/core';
 
 const Map = () => {
+
+  const navigation = useNavigation()
+
   const [startLocation,setstartLocation] = useState({
     latitude: 0,
     longitude: 0,
@@ -137,7 +142,7 @@ const Map = () => {
    
     
     {hasStarted 
-  ? <AppButton title = "Stop Tracking" onPress={stopTracking} />
+  ? <AppButton title = "Stop Tracking" onPress={() => {stopTracking, navigation.replace('summary')}} />
   : <AppButton title = "Start Tracking" onPress={startTracking} />
     }
 
