@@ -51,6 +51,9 @@ function EventsPage(props) {
         }, [numer]
     )
     
+    for (let i = 0; i < events.length; i ++) {
+        console.log(typeof(events[i].url))
+    }
 
     return (
 
@@ -76,7 +79,7 @@ function EventsPage(props) {
             data={arr}
             renderItem={({ item }) => (
                 <View style = {styles.cardContainer}>
-                    <Card title={item.title} subTitle = {item.subTitle} image={item.url} />
+                    <Card title={item.title} subTitle = {item.subTitle} image={String(item.url)} />
                 </View>
             )}
             />
