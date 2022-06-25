@@ -1,9 +1,10 @@
-import React,{useEffect,useState, useRef,useCallback} from 'react'
+import React,{useEffect,useState} from 'react'
 import MapView, {Marker, Callout,Polyline} from 'react-native-maps'
 import {SafeAreaView, View,Text,TouchableOpacity, Image, StyleSheet} from "react-native"
 import AppButton from '../components/AppButton' 
 import showTime , {getDayname, getTimeOfDay, calculatePace,calculateDistance} from '../constants/Calculations'
 import SummaryScreen from './SummaryScreen'
+import Screen from '../components/Screen'
 
 import * as Location from "expo-location"
 import colors from '../config/colors'
@@ -72,8 +73,14 @@ const Map = () => {
         }
         
         let updatedLocation = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.High,
+          accuracy: Location.Accuracy.Highest,
         });
+
+        console.log("slat", startLocation.latitude);
+        console.log("slong", startLocation.longitude);
+        console.log("ulat", updatedLocation.coords.latitude);
+        console.log("ulong", updatedLocation.coords.longitude);
+        console.log("dist", calculateDistance(startLocation.latitude, startLocation.longitude, 1.3814392527129047, 103.74254944114948))
 
         setDistance(prevDistance => prevDistance + 
           calculateDistance(startLocation.latitude, startLocation.longitude, updatedLocation.coords.latitude, updatedLocation.coords.longitude));
@@ -87,12 +94,7 @@ const Map = () => {
       }
             
 
-      
-
-
-
-
-     const startTracking = () => {
+  const startTracking = () => {
       sethasStarted(prevhasStarted => !prevhasStarted);
     }
 
@@ -112,8 +114,8 @@ const Map = () => {
   
 
   return (
-    <SafeAreaView style = {{height:'100%',width:"100%"}}>
-    {/* <View style = {{height:'100%',width:"100%"}} pointerEvents = "none">
+    <Screen>
+     <View style = {{height:'100%',width:"100%"}} pointerEvents = "none">
     <MapView
         provider = "google"
         style={styles.Map}
@@ -127,24 +129,21 @@ const Map = () => {
     <Text> Starting Point </Text>
     </Callout>
     </Marker>
+    
 
-    {setdrawLine && (
+     {/* {setdrawLine && (
       <Polyline
         coordinates={coordinates}
         strokeColor="#00a8ff"
         lineCap= "round"
         strokeWidth={2}
                   />
-                )}
+                )}  */}
    </MapView>
-   </View> */}
-   
-   
-    
-    {hasStarted 
-  ? <AppButton title = "Stop Tracking" onPress={() => {stopTracking, navigation.replace('summary')}} />
-  : <AppButton title = "Start Tracking" onPress={startTracking} />
-    }
+   {hasStarted 
+  ? <AppButton title = "Stop Tracking" onPress={stopTracking} /> // Navigate to Summary Screen with relevant props
+  : <AppButton title = "Start Tracking" onPress={startTracking}/>
+    } 
 
     {/* {hasStarted && (
       <AppButton title = "Resume Tracking" onPress = {resumeTracking} />
@@ -155,11 +154,11 @@ const Map = () => {
    <Text  style={styles.Text}>{getTimeOfDay()} </Text>
    <Text  style={styles.Text}>{calculatePace(distance,seconds)} </Text>
    <Text  style={styles.Text}>{distance} </Text>
+   </View>  
+   
+   
   
-
-
-    
-  </SafeAreaView>
+  </Screen>
 
   );
 }
