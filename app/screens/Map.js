@@ -1,30 +1,27 @@
 import React,{useEffect,useState, useRef,useCallback} from 'react'
 import MapView, {Marker, Callout,Polyline} from 'react-native-maps'
-import {View,Text,TouchableOpacity, Image, StyleSheet} from "react-native"
+import {SafeAreaView, View,Text,TouchableOpacity, Image, StyleSheet} from "react-native"
 import AppButton from '../components/AppButton' 
-import showTime from '../screens/Timer'
+import showTime , {getDayname, getTimeOfDay, calculatePace,calculateDistance} from '../constants/Calculations'
 
 import * as Location from "expo-location"
 import colors from '../config/colors'
-
-let foregroundSubscription = null;
-
 
 const Map = () => {
   const [startLocation,setstartLocation] = useState({
     latitude: 0,
     longitude: 0,
     latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
+    longitudeDelta: 0.0421
   });
   const [coordinates,setCoordinates] = useState([]);
   const [hasStarted,sethasStarted] = useState(false);
-  // const [drawLine,setdrawLine] = useState(false);
-  const [times, setTimes] = useState(0);
+  const [drawLine,setdrawLine] = useState(false);
+  const [distance, setDistance] = useState(0);
   const [seconds,setSeconds] = useState(0);
 
-  
-  
+
+
   // Tracking only starting location 
   useEffect(async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -41,6 +38,8 @@ const Map = () => {
         })
       }, []);
 
+
+    // Timer functionality
       useEffect( () => {
         if (hasStarted) {
         const interval = setInterval( () => {
@@ -50,53 +49,72 @@ const Map = () => {
       }
      }, [hasStarted])
 
+     // updating distance 
+     useEffect( () => {
+       if (hasStarted) {
+         const track_interval = setInterval(liveTracking,10000);
+         return () => clearInterval(track_interval);
+       }
+      } , [hasStarted])
 
-  const startTracking = async () => {
-    sethasStarted(prevhasStarted => !prevhasStarted);
-    const {status} = await Location.getForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      console.log('Permission to access location was denied'); // testing
-      return;
+
+      
+      const liveTracking = async () => {
+        const {status} = await Location.getForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          console.log('Permission to access location was denied'); // testing
+          return;
+        }
+        
+        let updatedLocation = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.High,
+        });
+
+        setDistance(prevDistance => prevDistance + 
+          calculateDistance(startLocation.latitude, startLocation.longitude, updatedLocation.coords.latitude, updatedLocation.coords.longitude));
+        setstartLocation(prevStartLocation => {
+            return {
+              ...prevStartLocation,
+              latitude: updatedLocation.coords.latitude,
+              longitude: updatedLocation.coords.longitude}
+        });
+        
+      }
+            
+
+      
+
+
+
+
+     const startTracking = () => {
+      sethasStarted(prevhasStarted => !prevhasStarted);
     }
-    foregroundSubscription = await Location.watchPositionAsync(
-      {
-        accuracy: Location.Accuracy.High,
-        distanceInterval: 15
-      },
-      location => {
-        setCoordinates(prevCoordinates => {
-          return [...prevCoordinates, {
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude 
-          } ]
-        })
-        setTimes(prevTimes => prevTimes + 1)
-        console.log(times);
-      })
+
+
+  
+
+    const stopTracking = () => {
+      // setdrawLine(prevDrawLine => !prevDrawLine);
+      sethasStarted(prevhasStarted => !prevhasStarted);
+      setCoordinates([]);
+      setSeconds(0);
+      setDistance(0);
+
     }
-
-  const stopTracking = () => {
-    foregroundSubscription?.remove();
-    // setdrawLine(prevDrawLine => !prevDrawLine);
-    sethasStarted(prevhasStarted => !prevhasStarted);
-    setCoordinates([]);
-    setTimes(0);
-    setSeconds(0);
-
-  }
-
-  const resumeTracking = () => {
-
-  }
+  
 
   
 
   return (
-    <View >
+    <SafeAreaView style = {{height:'100%',width:"100%"}}>
+    {/* <View style = {{height:'100%',width:"100%"}} pointerEvents = "none">
     <MapView
         provider = "google"
         style={styles.Map}
         region={startLocation}
+        minZoomLevel = {18}
+        mapType = "standard"
       >
 
       <Marker coordinate={startLocation} title='Marker' >
@@ -105,7 +123,7 @@ const Map = () => {
     </Callout>
     </Marker>
 
-    {hasStarted && (
+    {setdrawLine && (
       <Polyline
         coordinates={coordinates}
         strokeColor="#00a8ff"
@@ -113,41 +131,45 @@ const Map = () => {
         strokeWidth={2}
                   />
                 )}
-    
-    <Image style={styles.image} />
+   </MapView>
+   </View> */}
+   
+   
     
     {hasStarted 
   ? <AppButton title = "Stop Tracking" onPress={stopTracking} />
   : <AppButton title = "Start Tracking" onPress={startTracking} />
     }
 
-    {hasStarted && (
+    {/* {hasStarted && (
       <AppButton title = "Resume Tracking" onPress = {resumeTracking} />
-    )} 
+    )}  */}
 
-   <Text>{showTime(seconds)} </Text>
-  </MapView>
-
+   <Text  style={styles.Text}>{showTime(seconds)} </Text>
+   <Text  style={styles.Text}>{getDayname()} </Text>
+   <Text  style={styles.Text}>{getTimeOfDay()} </Text>
+   <Text  style={styles.Text}>{calculatePace(distance,seconds)} </Text>
+   <Text  style={styles.Text}>{distance} </Text>
   
+
+
     
-    </View>
+  </SafeAreaView>
 
   );
 }
 
 const styles = StyleSheet.create({
-  image:{
-    backgroundColor: colors.primary,
-    height: '55%',
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
-    opacity: 0.95,
-    top: '55%',
-  },
+  
   Map:{
-    alignSelf: 'stretch', 
-    height: '100%'
+    flex: 1, 
+    opacity: 0.6
   },
+  Text: {
+    fontSize:24,
+    fontWeight: 'bold'
+    
+  }
   
 })
 
