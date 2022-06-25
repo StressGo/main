@@ -7,7 +7,8 @@ import { getAuth } from "firebase/auth";
 
 import {
   getFirestore, collection, getDocs,
-  addDoc,
+  addDoc, deleteDoc, doc,
+  query, where
 } from 'firebase/firestore'
 
 
@@ -34,8 +35,7 @@ const firebaseConfig = {
 
   const app = initializeApp(firebaseConfig)
 
-  const db = getFirestore(app);
-  const auth = getAuth(app);
+  export const db = getFirestore(app);
+  export const auth = getAuth(app);
 
-  export {auth, db}
 

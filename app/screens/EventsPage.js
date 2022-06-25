@@ -1,74 +1,97 @@
-import React, { useState, setState } from 'react';
-import { View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native'
+import React, { useState, setState, useEffect } from 'react';
+import { View, Text, StyleSheet, ImageBackground, FlatList, Button, TouchableHighlight } from 'react-native'
 import Card from '../components/Card';
 import colors from '../config/colors';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/core';
+import AppButton from '../components/AppButton'
+import { SearchBar } from 'react-native-screens';
 
-import { firestore, collection, doc, getDoc } from 'firebase/firestore';
+import { Firestore, getDoc, collection, getDocs,
+        addDoc, deleteDoc, doc,
+        query, where, onSnapshot
+      
+} from 'firebase/firestore';
+
+
 
 import {db} from '../../firebase';
-
-// 6m x 2.5m
+import { async } from '@firebase/util';
 
 //run: 1
 //swim: 2
 //cycle: 3
 
 function EventsPage(props) {
-    const navigation = useNavigation()
+    
 
-    const eventRef = db.collection('events').doc('event1');
-    const snapshot = eventRef.get();
-    snapshot.then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-        });
+    const [events, setEvents] = useState([]);
+    const [bool, setBool] = useState(false);
+    const [arr, setArr] = useState(events)
+    const [numer, setNumer] = useState(0);
+    const colRef = collection(db, 'events');
+    
+    
+    const q = query(colRef, where('type', '>=', 0))
+
+    onSnapshot(q, (snapshot) => {
+        const events = []
+        snapshot.docs.forEach((doc) => {
+            events.push({...doc.data()}) //put the data into an array
+        })
+        if (bool === false) {
+            setEvents(events);
+            setBool(true)
+        }
     })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
+
     
-    
-    
+    useEffect( () => {
+        setArr(events.filter((item) => item.type == numer))
+        }, [numer]
+    )
     
 
     return (
 
-        <ScrollView style = {styles.container}>
+        <View style = {styles.container}>
             <ImageBackground
                 source = {require('../assets/splash-page.jpg')}
                 style = {{width: '100%', height: '100%'}}
                 blurRadius={8}
             >   
-            <View style = {styles.closeIcon}>
+            <View style = {styles.backIcon}>
                 <MaterialCommunityIcons name='arrow-left-bold' color="black" size={35} onPress={() => {
                         navigation.replace("Connect_me")
                   }} />
             </View>
-            <View style = {styles.searchIcon}>
-                <MaterialCommunityIcons name='magnify' color="black" size={35} />
-            </View>
+            
         <Text style = {styles.text}>EVENTS</Text>
-            <View style = {styles.cardContainer}>
-            <Card 
-                title={'NIKE RUN'}
-                subTitle={'Just Run Lah!'}
-                image={require('../assets/Nike_KL_Run.jpg')}
-                onPress = {() => {
-                    navigation.replace("EventsListing_1")
-              }}
+        <View style = {styles.buttons}>
+            <AppButton title={'Run'} onPress = {() => setNumer(1)}/>
+            <AppButton title={'Swim'} onPress = {() => setNumer(2)}/>
+            <AppButton title={'Cycle'} onPress = {() => setNumer(3)}/>
+        </View>
+        <FlatList
+            data={arr}
+            renderItem={({ item }) => (
+                <View style = {styles.cardContainer}>
+                    <Card title={item.title} subTitle = {item.subTitle} image={item.url} />
+                </View>
+            )}
             />
             
-            </View>
-            </ImageBackground>
             <Text></Text>
             <Text></Text>
             <Text></Text>
             <Text></Text> 
             <Text></Text>
-        </ScrollView>
+            <Text></Text>
+            <Text></Text>
+            <Text></Text>
+            
+            </ImageBackground>
+        </View>
         // trolling
     );
 }
@@ -77,7 +100,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 80,
         textAlign:'center',
-        paddingBottom: 20,
         color: colors.primary,
         fontWeight: 'bold',
     },
@@ -88,7 +110,7 @@ const styles = StyleSheet.create({
         width: '95%',
         alignSelf: 'center'
     },
-    closeIcon: {
+    backIcon: {
         paddingLeft: 10,
         paddingTop: 30,
     }, 
@@ -98,6 +120,10 @@ const styles = StyleSheet.create({
         position: 'relative',
         left: 330,
         bottom: 47
+    },
+    buttons: {
+        flexDirection: 'row',
+        padding: 20,
     }
 })
 

@@ -6,21 +6,21 @@ import WelcomeScreen from './app/screens/WelcomeScreen';
 import HomeScreen from './app/screens/HomeScreen';
 import RegistrationPage from './app/screens/RegistrationPage';
 import ImagePickerExample from './app/screens/ImagePickerExample';
+import EventsSelection from './app/screens/EventsSelection';
+import EventsPage from './app/screens/EventsPage';
 
 
 const AuthStack = createNativeStackNavigator();
 
 const App = () => {
   return ( 
-    <NavigationContainer>
-      <AuthStack.Navigator>
-        <AuthStack.Screen options = { {headerShown: false}} name ="login" component={WelcomeScreen} />
-        <AuthStack.Screen options = { {headerShown: false}} name ="Register" component={RegistrationPage} /> 
-        <AuthStack.Screen options = { {headerShown: false}} name ="tabs" component={Tabs} /> 
-        <AuthStack.Screen options = { {headerShown: false}} name ="edit" component={ImagePickerExample} />
-      </AuthStack.Navigator>
-    </NavigationContainer>
-  
+     <NavigationContainer>
+       <AuthStack.Navigator>
+         <AuthStack.Screen options = { {headerShown: false}} name ="login" component={WelcomeScreen} />
+         <AuthStack.Screen options = { {headerShown: false}} name ="Register" component={RegistrationPage} /> 
+         <AuthStack.Screen options = { {headerShown: false}} name ="tabs" component={Tabs} /> 
+       </AuthStack.Navigator>
+     </NavigationContainer>
   );
 }
 
