@@ -10,6 +10,7 @@ import * as Location from "expo-location"
 import colors from '../config/colors'
 import { useNavigation } from '@react-navigation/core';
 
+
 const Map = () => {
 
   const navigation = useNavigation()
@@ -25,6 +26,8 @@ const Map = () => {
   const [drawLine,setdrawLine] = useState(false);
   const [distance, setDistance] = useState(0);
   const [seconds,setSeconds] = useState(0);
+  const [arr, setArr] = useState([{distance: 0, time: 0}]);
+  
 
 
 
@@ -106,12 +109,15 @@ const Map = () => {
       // setdrawLine(prevDrawLine => !prevDrawLine);
       sethasStarted(prevhasStarted => !prevhasStarted);
       setCoordinates([]);
+      setArr([{distance: distance, time: seconds}])
+      console.log(arr);
       setSeconds(0);
       setDistance(0);
 
     }
-  
 
+    
+    
   
 
   return (
@@ -142,10 +148,13 @@ const Map = () => {
                 )}   */}
    </MapView>
 
+   <View style = {styles.button}>      
    {hasStarted 
-  ? <AppButton title = "Stop Tracking" onPress={() => {stopTracking, navigation.replace("summary")}} />
+  ? <AppButton title = "Stop Tracking" onPress={() => {stopTracking, navigation.navigate("summary", {arr})}} />
   : <AppButton title = "Start Tracking" onPress={startTracking}/>
     } 
+
+  </View>         
 
     {/* {hasStarted && (
       <AppButton title = "Resume Tracking" onPress = {resumeTracking} />
@@ -168,11 +177,8 @@ const Map = () => {
             
 
           </View >
-
-   {hasStarted 
-  ? <AppButton title = "Stop Tracking" onPress={stopTracking} /> 
-  : <AppButton title = "Start Tracking" onPress={startTracking}/>
-    } 
+          
+          
    
    </View>
   
@@ -199,18 +205,25 @@ const styles = StyleSheet.create({
   Textbold: {
     fontSize:24,
     fontWeight: 'bold',
+    paddingLeft: 8,
   },
   Text: {
     fontSize:16, 
-    color: '#aaaaaa'
-
+    color: '#aaaaaa',
+    paddingLeft: 10,
   },
   TextContainer: {
     marginTop: 12, 
     flexDirection: "row",
-     justifyContent: "space-between",
-      alignItems: "center"
-
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingRight: 20,
+    paddingLeft: 10,
+  },
+  button: {
+    top: 20,
+    width: '80%',
+    alignSelf: 'center',
   }
   
 })
