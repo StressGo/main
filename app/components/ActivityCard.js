@@ -6,11 +6,11 @@ const ActivityCard = (props) => {
   return (
     <View style = {{borderRadius:12, backgroundColor: '#ffffff', marginVertical:8, padding: 16, elevation: 1}}>
     <View style ={{flexDirection: "row", justifyContent:"flex-start", alignItems: "flex-start"}}>
-        <Image source = {{uri: 'https://i.stack.imgur.com/ddX9U.png'}} 
+        <Image source = {{uri: props.image}} 
          style = {{width:40, height:40, borderRadius: 8}} />
          <View style ={{marginLeft: 12}}> 
              <Text> {props.day}</Text>
-             <Text> {props.day} {props.timeofDay} RunScreen</Text>
+             <Text> {props.timeofDay}RunScreen</Text>
          </View>
     </View>
 
@@ -25,7 +25,7 @@ const ActivityCard = (props) => {
         </View>
         <View>
         <Text style ={{fontWeight: "bold"}}>{props.time}</Text>
-        <Text>Kilometer</Text>
+        <Text>Time</Text>
         </View>
     </View>
     </View>

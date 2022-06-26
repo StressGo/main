@@ -1,21 +1,36 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {SafeAreaView, View , Text} from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Map from './Map'
 import Activity from './Activity'
 import { NavigationContainer } from '@react-navigation/native';
+import Screen from '../components/Screen';
 
+import { Firestore, getDoc, collection, getDocs,
+  addDoc, deleteDoc, doc,
+  query, where, onSnapshot, Document
+
+} from 'firebase/firestore';
+import {db} from '../../firebase';
+import { auth } from '../../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 
 const RunScreen = () => {
+
+  const [user, setUser] = useState('')
+  const [bool, setBool] = useState(false);
+  const [arr, setArr] = useState([]);
   
-const Tab = createMaterialTopTabNavigator()
+  const Tab = createMaterialTopTabNavigator()
+  const colRef = collection(db, 'user_data');
+  
 
   return (
 
-    
-     <NavigationContainer>
+    <Screen>
+    <NavigationContainer>
 
     <Tab.Navigator screenOptions={{
         tabBarLabelStyle:{color:"#040404", fontWeight: "bold"}
@@ -30,6 +45,7 @@ const Tab = createMaterialTopTabNavigator()
     </Tab.Navigator>
 
     </NavigationContainer>
+    </Screen>
     
   )
 }

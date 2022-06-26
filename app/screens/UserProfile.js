@@ -5,9 +5,11 @@ import Card from '../components/Card';
 import AppButton from '../components/AppButton';
 import WelcomeScreen from '../screens/WelcomeScreen';
 
+
 import { signOut } from "firebase/auth";
 import { auth } from '../../firebase';
 import { useNavigation } from '@react-navigation/native';
+import Activity from './Activity';
 
 function UserProfile(props) {
 
@@ -21,9 +23,10 @@ function UserProfile(props) {
           .catch(error => alert(error.message))
     }
 
+
     return (
         
-        <ScrollView>
+        <View>
             <Image source = {require('../assets/nike.jpg')} style = {styles.image} />
             <View>
                 <View style = {styles.profileImageContainer}>
@@ -34,6 +37,8 @@ function UserProfile(props) {
                 </View>
                 </View>
                 <View style = {styles.cardContainer}>
+                <Text style = {styles.txt}>Run history</Text>
+                    <Activity />
                     <Text></Text>
                     <Text></Text>
                     <Text></Text>
@@ -42,7 +47,7 @@ function UserProfile(props) {
                 </View>
             </View>
             
-        </ScrollView>
+        </View>
         
     );
 }
@@ -62,7 +67,8 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         width: '95%',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        bottom: 80,
     },
     buttonContainer: {
         paddingTop: 25,
@@ -75,6 +81,10 @@ const styles = StyleSheet.create({
     text: {
         alignSelf: 'center',
         paddingTop: 30,
+    },
+    txt: {
+        padding: 20,
+        fontWeight: 'bold'
     }
 })
 

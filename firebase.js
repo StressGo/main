@@ -3,6 +3,11 @@
 import {initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { Firestore, getDoc, collection, getDocs,
+  addDoc, deleteDoc, doc,
+  query, where, onSnapshot
+
+} from 'firebase/firestore';
 
 
 const FIREBASE_APIKEY="AIzaSyD1Hk1asVux06fU55J3FaaYfyIUI4sM1B4"

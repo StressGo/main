@@ -14,6 +14,7 @@ import { StyleSheet, View } from 'react-native';
 
 
 
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -26,7 +27,7 @@ const App = () => {
         <Stack.Screen options = { {headerShown: false}} name ="summary" component={SummaryScreen} /> 
       </Stack.Navigator>
     </NavigationContainer>
-    
+      
      );
     
     

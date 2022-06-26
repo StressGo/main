@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   smalltext: {
     paddingLeft: 30,
-  }
+  },
 })
 
 export default HomeScreen

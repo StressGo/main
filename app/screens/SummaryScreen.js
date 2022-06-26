@@ -9,8 +9,12 @@ import showTime , {getDayname, getTimeOfDay, calculatePace,calculateDistance} fr
 
 const SummaryScreen = ({route}) => {
   const [title, setTitle] = useState("Type something here");
+  const [arr, setArr] = useState([]);
   const TextInputRef = useRef();
- const navigation = useNavigation();
+  const navigation = useNavigation();
+
+  
+
   return (
     <Pressable style= {styles.MainContainer} onPress={() => Keyboard.dismiss()}>
         
