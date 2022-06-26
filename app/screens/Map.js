@@ -11,11 +11,9 @@ import colors from '../config/colors'
 import { useNavigation } from '@react-navigation/core';
 
 
-const Map = () => {
+const Map = ({navigation}) => {
 
-  const navigation = useNavigation()
-
-  const [startLocation,setstartLocation] = useState({
+const [startLocation,setstartLocation] = useState({
     latitude: 0,
     longitude: 0,
     latitudeDelta: 0.0922,
@@ -26,8 +24,7 @@ const Map = () => {
   const [drawLine,setdrawLine] = useState(false);
   const [distance, setDistance] = useState(0);
   const [seconds,setSeconds] = useState(0);
-  const [arr, setArr] = useState([{distance: 0, time: 0}]);
-  
+
 
 
 
@@ -108,11 +105,6 @@ const Map = () => {
     const stopTracking = () => {
       // setdrawLine(prevDrawLine => !prevDrawLine);
       sethasStarted(prevhasStarted => !prevhasStarted);
-      setCoordinates([]);
-      setArr([{distance: distance, time: seconds}])
-      console.log(arr);
-      setSeconds(0);
-      setDistance(0);
 
     }
 
@@ -150,7 +142,7 @@ const Map = () => {
 
    <View style = {styles.button}>      
    {hasStarted 
-  ? <AppButton title = "Stop Tracking" onPress={() => {stopTracking, navigation.navigate("summary", {arr})}} />
+  ? <AppButton title = "Stop Tracking" onPress={() => {stopTracking, navigation.navigate("summary", {distance: distance.toFixed(2), time: showTime(seconds), pace: calculatePace(distance,seconds)})}} />
   : <AppButton title = "Start Tracking" onPress={startTracking}/>
     } 
 

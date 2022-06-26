@@ -4,12 +4,13 @@ import FontAwesome from "react-native-vector-icons/FontAwesome"
 import Map from './Map'
 import { NavigationContainer, TabRouter, useNavigation, Navigation } from '@react-navigation/native';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
+import showTime , {getDayname, getTimeOfDay, calculatePace,calculateDistance} from '../constants/Calculations'
 
 
-const SummaryScreen = (props) => {
+const SummaryScreen = ({route}) => {
   const [title, setTitle] = useState("Type something here");
   const TextInputRef = useRef();
-  const navigation = useNavigation();
+ const navigation = useNavigation();
   return (
     <Pressable style= {styles.MainContainer} onPress={() => Keyboard.dismiss()}>
         
@@ -28,18 +29,18 @@ const SummaryScreen = (props) => {
         <KeyboardAvoidingView behavior = {Platform.OS == 'ios' ? "padding" :'height'}>
 
         <View style = {{marginTop: 12}}>
-            <Text style = {styles.Textlarge}>{12}</Text>
+            <Text style = {styles.Textlarge}>{route.params.distance}</Text>
             <Text style = {styles.Text}>Kilometer</Text>
         </View>
 
         <View style = {styles.TextContainer}>
             <View>
-            <Text style = {styles.Textbold}> 12'00"</Text>
+            <Text style = {styles.Textbold}> {route.params.pace}</Text>
             <Text style = {styles.Text}> Pace</Text>
             </View>
 
             <View>
-            <Text style = {styles.Textbold}> 15:00</Text>
+            <Text style = {styles.Textbold}> {route.params.time}</Text>
             <Text style = {styles.Text}> Time</Text>
             </View>
 
@@ -96,7 +97,8 @@ const styles = StyleSheet.create({
   },
   TextInput: {
     fontSize:26 , 
-    fontWeight: "bold"
+    color: '#aaaaaa'
+    
 
   },
   TextContainer: {
