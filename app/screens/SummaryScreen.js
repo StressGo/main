@@ -1,46 +1,41 @@
 import React , {useState , useRef} from 'react'
-import {SafeAreaView , Text , TextInput, View , Pressable, Keyboard, KeyboardAvoidingView, Platform, Image} from 'react-native'
+import {SafeAreaView , Text , TextInput, View , Pressable, Keyboard, KeyboardAvoidingView, Platform, Image , StyleSheet} from 'react-native'
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 
 
-const SummaryScreen = () => {
-  const [title, setTitle] = useState("Monday Afternoon Run");
+const SummaryScreen = (props) => {
+  const [title, setTitle] = useState("Type something here");
   const TextInputRef = useRef();
   return (
-    <Pressable style= {{backgroundColor: "#fff", flex: 1, borderTopWidth: 1, borderColor: "#ccc", padding: 20}} onPress={() => Keyboard.dismiss()}>
+    <Pressable style= {styles.MainContainer} onPress={() => Keyboard.dismiss()}>
         
-        <Text style = {{fontSize:16, color: '#aaaaaa'}}> Monday - 12:00</Text>
-        <Pressable style = {{borderBottomWidth: 1, borderColor: "#ccc", paddingBottom: 8 , 
-        flexDirection: "row", justifyContent: "space-between", alignItems: "center"}} onPress = {() => TextInputRef.current.focus()}>
-            <TextInput value = {title} onChangeText = {input => setTitle(input)} style = {{fontSize:26 , fontWeight: "bold"}} ref = {TextInputRef}/>
+        <Text style = {styles.Text}> yo.</Text>
+        <Pressable style = {styles.Pressable} onPress = {() => TextInputRef.current.focus()}>
+            <TextInput value = {title} onChangeText = {input => setTitle(input)} style = {styles.TextInput} ref = {TextInputRef}/>
             <FontAwesome name = "pencil" size = {25} />
         </Pressable>
 
         <KeyboardAvoidingView behavior = {Platform.OS == 'ios' ? "padding" :'height'}>
 
         <View style = {{marginTop: 12}}>
-            <Text style = {{fontSize: 100, fontWeight: 'bold'}}>2.4</Text>
-            <Text style = {{fontSize:16, color: '#aaaaaa'}}>Kilometer</Text>
+            <Text style = {styles.Textlarge}>2.4</Text>
+            <Text style = {styles.Text}>Kilometer</Text>
         </View>
 
-        <View style = {{marginTop: 12, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+        <View style = {styles.TextContainer}>
             <View>
-            <Text style = {{fontSize:24,fontWeight: 'bold'}}> 12'00"</Text>
-            <Text style = {{fontSize:16, color: '#aaaaaa'}}> Pace</Text>
+            <Text style = {styles.Textbold}> 12'00"</Text>
+            <Text style = {styles.Text}> Pace</Text>
             </View>
 
             <View>
-            <Text style = {{fontSize:24,fontWeight: 'bold'}}> 15:00</Text>
-            <Text style = {{fontSize:16, color: '#aaaaaa'}}> Time</Text>
+            <Text style = {styles.Textbold}> 15:00</Text>
+            <Text style = {styles.Text}> Time</Text>
             </View>
 
-            <View>
-            <Text style = {{fontSize:24,fontWeight: 'bold'}}> 100</Text>
-            <Text style = {{fontSize:16, color: '#aaaaaa'}}> Calories</Text>
-            </View>
         </View >
 
-        <View style = {{flex: 1, justifyContent: 'center', alignItems: "center"}}>
+        <View style = {styles.ProgressBarContainer}>
             {/* <Image 
               source = {require("../assets/RunningGo.png")} 
               style = {{height: 100, width: 100}}/> */}
@@ -54,4 +49,61 @@ const SummaryScreen = () => {
   )
 }
 
+const styles = StyleSheet.create({
+  
+  Map:{
+    flex: 1, 
+    opacity: 0.6
+  },
+  Textbold: {
+    fontSize:24,
+    fontWeight: 'bold',
+  },
+  Text: {
+    fontSize:16, 
+    color: '#aaaaaa'
+
+  },
+  Textlarge: {
+    fontSize: 100, 
+    fontWeight: 'bold'
+  },
+  MainContainer : {
+    backgroundColor: "#fff", 
+    flex: 1, 
+    borderTopWidth: 1, 
+    borderColor: "#ccc",
+     padding: 20
+  }, 
+  Pressable: {
+    borderBottomWidth: 1, 
+    borderColor: "#ccc",
+    paddingBottom: 8 , 
+    flexDirection: "row", 
+    justifyContent: "space-between", 
+    alignItems: "center"
+
+  },
+  TextInput: {
+    fontSize:26 , 
+    fontWeight: "bold"
+
+  },
+  TextContainer: {
+    marginTop: 12, 
+    flexDirection: "row",
+     justifyContent: "space-between",
+      alignItems: "center"
+
+  }, 
+  ProgressBarContainer: {
+    flex: 1, 
+    justifyContent: 'center',
+     alignItems: "center"
+
+  }
+  
+})
+
 export default SummaryScreen
+
