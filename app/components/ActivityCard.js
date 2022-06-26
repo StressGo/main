@@ -1,5 +1,6 @@
 import React from 'react'
-import {View , Text, Image} from 'react-native'
+import {View , Text, Image, StyleSheet} from 'react-native'
+
 
 const ActivityCard = (props) => {
   return (
@@ -30,5 +31,9 @@ const ActivityCard = (props) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  
+})
 
 export default ActivityCard

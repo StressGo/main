@@ -76,11 +76,12 @@ const Map = () => {
           accuracy: Location.Accuracy.Highest,
         });
 
-        console.log("slat", startLocation.latitude);
-        console.log("slong", startLocation.longitude);
-        console.log("ulat", updatedLocation.coords.latitude);
-        console.log("ulong", updatedLocation.coords.longitude);
-        console.log("dist", calculateDistance(startLocation.latitude, startLocation.longitude, 1.3814392527129047, 103.74254944114948))
+        // testing
+        // console.log("slat", startLocation.latitude);
+        // console.log("slong", startLocation.longitude);
+        // console.log("ulat", updatedLocation.coords.latitude);
+        // console.log("ulong", updatedLocation.coords.longitude);
+        // console.log("dist", calculateDistance(startLocation.latitude, startLocation.longitude, 1.3814392527129047, 103.74254944114948))
 
         setDistance(prevDistance => prevDistance + 
           calculateDistance(startLocation.latitude, startLocation.longitude, updatedLocation.coords.latitude, updatedLocation.coords.longitude));
@@ -115,7 +116,7 @@ const Map = () => {
 
   return (
     <Screen>
-     <View style = {{height:'100%',width:"100%"}}>
+     <View style = {{height:'90%',width:"100%"}} >
     <MapView
         provider = "google"
         style={styles.Map}
@@ -131,14 +132,14 @@ const Map = () => {
     </Marker>
     
 
-     {/* {setdrawLine && (
+      {/* {setdrawLine && (
       <Polyline
         coordinates={coordinates}
         strokeColor="#00a8ff"
         lineCap= "round"
         strokeWidth={2}
                   />
-                )}  */}
+                )}   */}
    </MapView>
 
    {hasStarted 
@@ -149,15 +150,31 @@ const Map = () => {
     {/* {hasStarted && (
       <AppButton title = "Resume Tracking" onPress = {resumeTracking} />
     )}  */}
+  
+  <View style = {{ textAlign: "center", padding: 20}}>
+            <Text style = {styles.Textlarge}>{distance.toFixed(2)}</Text>
+            <Text style = {styles.Text}>Kilometer</Text>
+        </View>
 
-   <Text  style={styles.Text}>{showTime(seconds)} </Text>
-   <Text  style={styles.Text}>{getDayname()} </Text>
-   <Text  style={styles.Text}>{getTimeOfDay()} </Text>
-   <Text  style={styles.Text}>{calculatePace(distance,seconds)} </Text>
-   <Text  style={styles.Text}>{distance} </Text>
-   </View>  
+        <View style = {styles.TextContainer}>
+            <View>
+            <Text style = {styles.Textbold}> {calculatePace(distance,seconds)}</Text>
+            <Text style = {styles.Text}> Pace</Text>
+            </View>
+            <View>
+            <Text style = {styles.Textbold}> {showTime(seconds)} </Text>
+            <Text style = {styles.Text}> Time</Text>
+            </View>
+            
+
+          </View >
+
+   {hasStarted 
+  ? <AppButton title = "Stop Tracking" onPress={stopTracking} /> 
+  : <AppButton title = "Start Tracking" onPress={startTracking}/>
+    } 
    
-   
+   </View>
   
   </Screen>
 
@@ -174,6 +191,26 @@ const styles = StyleSheet.create({
     fontSize:24,
     fontWeight: 'bold'
     
+  },
+  Textlarge: {
+    fontSize: 100, 
+    fontWeight: 'bold'
+  },
+  Textbold: {
+    fontSize:24,
+    fontWeight: 'bold',
+  },
+  Text: {
+    fontSize:16, 
+    color: '#aaaaaa'
+
+  },
+  TextContainer: {
+    marginTop: 12, 
+    flexDirection: "row",
+     justifyContent: "space-between",
+      alignItems: "center"
+
   }
   
 })
