@@ -59,11 +59,11 @@ const Tabs = () => {
                             style= {{
                                 width: 25,
                                 height: 25,
-                                tintColor: focused ? 'e32f45' : '#748c94',
+                                tintColor: focused ? '#e32f45' : '#748c94',
                                 bottom: 5,
                             }}
                         />
-                        <Text style={{color: focused ? 'e32f45' : '#748c94'}}>Home</Text>
+                        <Text style={{color: focused ? '#e32f45' : '#748c94'}}>Home</Text>
                     </View>
                 ),
             }}/>
@@ -76,11 +76,11 @@ const Tabs = () => {
                             style= {{
                                 width: 25,
                                 height: 25,
-                                tintColor: focused ? 'e32f45' : '#748c94',
+                                tintColor: focused ? '#e32f45' : '#748c94',
                                 bottom: 5,
                             }}
                         />
-                        <Text style={{color: focused ? 'e32f45' : '#748c94'}}>Events</Text>
+                        <Text style={{color: focused ? '#e32f45' : '#748c94'}}>Events</Text>
                     </View>
                 ),
             }} 
@@ -113,11 +113,11 @@ const Tabs = () => {
                             style= {{
                                 width: 25,
                                 height: 25,
-                                tintColor: focused ? 'e32f45' : '#748c94',
+                                tintColor: focused ? '#e32f45' : '#748c94',
                                 bottom: 5,
                             }}
                         />
-                        <Text style={{color: focused ? 'e32f45' : '#748c94'}}>Connect</Text>
+                        <Text style={{color: focused ? '#e32f45' : '#748c94'}}>Connect</Text>
                     </View>
                 ),
             }}/>
@@ -130,10 +130,10 @@ const Tabs = () => {
                             style= {{
                                 width: 25,
                                 height: 25,
-                                tintColor: focused ? 'e32f45' : '#748c94'
+                                tintColor: focused ? '#e32f45' : '#748c94'
                             }}
                         />
-                        <Text style={{color: focused ? 'e32f45' : '#748c94'}}>Profile</Text>
+                        <Text style={{color: focused ? '#e32f45' : '#748c94'}}>Profile</Text>
                     </View>
                 ),
             }}/>

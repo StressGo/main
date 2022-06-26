@@ -115,7 +115,7 @@ const Map = () => {
 
   return (
     <Screen>
-     <View style = {{height:'100%',width:"100%"}} pointerEvents = "none">
+     <View style = {{height:'100%',width:"100%"}}>
     <MapView
         provider = "google"
         style={styles.Map}
@@ -140,8 +140,9 @@ const Map = () => {
                   />
                 )}  */}
    </MapView>
+
    {hasStarted 
-  ? <AppButton title = "Stop Tracking" onPress={stopTracking} /> // Navigate to Summary Screen with relevant props
+  ? <AppButton title = "Stop Tracking" onPress={() => {stopTracking, navigation.replace("summary")}} />
   : <AppButton title = "Start Tracking" onPress={startTracking}/>
     } 
 

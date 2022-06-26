@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {KeyboardAvoidingView,ImageBackground, StyleSheet, View, Button, Image, TextInput } from "react-native"
+import {Keyboard, Text, KeyboardAvoidingView, TouchableWithoutFeedback,ImageBackground, StyleSheet, View, Button, Image, TextInput } from "react-native"
 import colors from '../config/colors';
 import AppButton from '../components/AppButton' 
 import RegistrationPage from '../screens/RegistrationPage'
@@ -40,86 +40,97 @@ function WelcomeScreen() {
 
  
   return (
-      <View>
-       <ImageBackground 
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <ImageBackground 
           style = {styles.imageContainer}
           blurRadius = {8}
           source = {require('../assets/homepage.jpg')}>
-            
-            <Image 
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.inner}>
+          
+          
+        <Image 
             source = {require('../assets/RunningGo.png')}
             style = {{
               alignSelf: 'center',
               height: 400,
               width: 300,
+              bottom: 50,
               
             }}
             />
-            <View style={styles.inputContainer}>
-          <TextInput
-            placeholder = "Email" 
-            value = {email}
-            onChangeText = {text => setEmail(text)}
-            style = {styles.input}>
-          </TextInput>
+
+
+          <View style = {styles.txt}>
+            <TextInput
+              placeholder = "Email" 
+              value = {email}
+              onChangeText = {text => setEmail(text)}
+              style = {styles.textInput}>
+            </TextInput>
+          </View>
           <TextInput
           placeholder="Password"
           value={password}
           onChangeText={text => setPassword(text)}
-          style={styles.input}
+          style={styles.textInput}
           secureTextEntry={true}>
           
          </TextInput>
-      </View>
-      <View style={styles.container}>
-           <AppButton title = 'Login' onPress = {login} />
-           <AppButton title = 'Register' onPress = {() => navigation.replace('Register')} />
-      </View>
-          
-        </ImageBackground> 
-        
- </View>
-        
-    );
-}
+          <View style={styles.btnContainer}>
+            <AppButton title="Login" onPress={login} />
+            <AppButton title="Register" onPress={() => navigation.replace('Register')} />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+      </ImageBackground>
+    </KeyboardAvoidingView>
+  );
+};
+
 export default WelcomeScreen
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      },
-      imageContainer: {
-        height: '100%',
-        width: '100%',
-
-      },
-      button: {
-        position: 'absolute',
-        bottom: 0,
-        opacity: 1,
-        
-      },
-      bottom: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        marginBottom: 36
-      },
-      inputContainer: {
-        width: '80%',
-        alignSelf: 'center',
-
-      },
-      input: {
-        backgroundColor: 'white',
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 10,
-        marginTop: 5,
-       
-       
-      }
+  container: {
+    flex: 1
+  },
+  inner: {
+    flex: 1,
+    justifyContent: "space-around"
+  },
+  header: {
+    fontSize: 36,
+    marginBottom: 48
+  },
+  textInput: {
+    height: 40,
+    borderColor: "#000000",
+    borderBottomWidth: 1,
+    marginBottom: 30,
+    bottom: 90,
+    backgroundColor: 'white',
+    width: '80%',
+    alignSelf: 'center',
+    
+  },
+  btnContainer: {
+    marginTop: 12,
+    width: 150,
+    alignSelf: 'center',
+    bottom: 80,
+    paddingTop: 10,
+  },
+  imageContainer: {
+    height: '100%',
+    width: '100%',
+    
+  },
+  txt: {
+    paddingBottom: 60,
+  }
 });
 
 
