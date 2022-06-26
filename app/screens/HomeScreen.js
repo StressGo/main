@@ -4,10 +4,22 @@ import AppButton from '../components/AppButton'
 import Card from '../components/Card'
 import AppText from '../components/AppText';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import Carousel from 'react-native-snap-carousel';
 
 import { signOut } from "firebase/auth";
 import { auth } from '../../firebase';
 import Tabs from '../../navigation/tabs';
+import { Firestore, getDoc, collection, getDocs,
+  addDoc, deleteDoc, doc,
+  query, where, onSnapshot
+
+} from 'firebase/firestore';
+
+
+
+import {db} from '../../firebase';
+import { async } from '@firebase/util';
+import colors from '../config/colors';
 
 
 
@@ -15,14 +27,27 @@ const HomeScreen = () => {
 
   const navigation = useNavigation();
 
-    const handleSignOut = () => {
-      signOut(auth)
-        .then(() => { //try catch block
-          navigation.replace("login") //When sign out, brings back to login page
-        })
-        .catch(error => alert(error.message))
-    }
+    const [events, setEvents] = useState([]);
+    const [bool, setBool] = useState(false);
+    const [arr, setArr] = useState(events);
+    const colRef = collection(db, 'events');
+    
+    
+    const q = query(colRef, where('type', '>=', 0))
 
+    onSnapshot(q, (snapshot) => {
+        const events = []
+        snapshot.docs.forEach((doc) => {
+            events.push({...doc.data()}) //put the data into an array
+        })
+        if (bool === false) {
+            setEvents(events);
+            setBool(true)
+        }
+    })
+
+      
+    
     
   return (
     
@@ -33,23 +58,22 @@ const HomeScreen = () => {
           blurRadius = {8}
           style = {styles.imageContainer}
             >
-          <Text style = {styles.text} >Hello, Benjy</Text> 
-          <View>
-                <Card 
-                    title={'Run'}
-                    subTitle={'Ready for a run?'}
-                    image = {require('../assets/running.jpg')}
-                    
-                />
-                <Card
-                    title={'Connect Me'} 
-                    subTitle={'Find like minded runners!'}
-                    image={require('../assets/grouprun.jpg')}
-                    onPress = {() => {
-                      navigation.replace("Connect_me") // go to connect me screen
-                }}
-                    
-                />
+          <Text style = {styles.text} >Hello there!</Text> 
+          <Text style = {styles.smalltext} >Ongoing events:</Text> 
+          <Text style = {styles.smalltext} >(slide to find out more!)</Text> 
+          <View style = {styles.carousel}>
+              <Carousel
+                layout='tinder'
+                layoutCardOffset={`40`}
+                data={events}
+                renderItem={({ item }) => (
+                  <View style = {styles.cardContainer}>
+                      <Card title={item.title} subTitle = {item.subTitle} image={String(item.url)} />
+                  </View>
+                )}
+                sliderWidth={350}
+                itemWidth={350}
+              />
           </View>
           <View style = {styles.button}>
           </View>
@@ -67,10 +91,11 @@ const styles = StyleSheet.create({
   },
   text: {
     padding: 30,
-    paddingTop: 60,
-    fontSize: 30,
+    paddingTop: 100,
+    fontSize: 60,
     fontFamily: "Roboto",
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: colors.primary,
   },
   button:{
     width: '33%',
@@ -79,6 +104,13 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
 
+  },
+  carousel: {
+    alignSelf: 'center',
+    paddingTop: 20,
+  },
+  smalltext: {
+    paddingLeft: 30,
   }
 })
 
