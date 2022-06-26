@@ -34,7 +34,7 @@ const [startLocation,setstartLocation] = useState({
   const [end, setEnd] = useState(false);
   const [distance, setDistance] = useState(0);
   const [seconds,setSeconds] = useState(0);
-  const [send, setSend] = useState([]);
+  const [send, setSend] = useState({});
   const [user, setUser] = useState('')
 
   // Tracking only starting location 
@@ -114,31 +114,36 @@ const [startLocation,setstartLocation] = useState({
     const stopTracking = () => {
       // setdrawLine(prevDrawLine => !prevDrawLine);
       sethasStarted(prevhasStarted => !prevhasStarted);
-
+      setEnd(prevEnd => !prevEnd);
     }
 
     
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user.uid);
-      } else {
-        console.log("no user found")
-      }
-    })
+    
 
     const colRef = collection(db, 'user_data');
 
     useEffect(() => {
-      setSend([{
-        averagepace: calculatePace(distance, seconds),
-        distance: distance.toFixed(2),
-        time: showTime(seconds),
-        day: getDayname(),
-        uid: user,
-        picture:'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg',
-      }])
+      if  (end == true) {
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setUser(user.uid);
+          } else {
+            console.log("no user found")
+          }
+        })
+        setSend({
+          averagepace: String(calculatePace(distance, seconds)),
+          distance: distance.toFixed(2),
+          time: String(showTime(seconds)),
+          day: getDayname(),
+          uid: user,
+          picture:'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg',
+        })
+        const res = addDoc(colRef, send);
+      }
     }, [end]);
 
+    
 
   return (
     <Screen>
@@ -170,9 +175,9 @@ const [startLocation,setstartLocation] = useState({
 
    <View style = {styles.button}>      
    {hasStarted 
-  ? <AppButton title = "Stop Tracking" onPress={() => {setEnd(true), 
+  ? <AppButton title = "Stop Tracking" onPress={() => {stopTracking
       navigation.navigate("summary", {distance: distance.toFixed(2), 
-        time: showTime(seconds), pace: calculatePace(distance,seconds)}), stopTracking}} />
+        time: showTime(seconds), pace: calculatePace(distance,seconds)})}} />
 
   : <AppButton title = "Start Tracking" onPress={startTracking}/>
     } 
