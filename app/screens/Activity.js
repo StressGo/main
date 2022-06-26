@@ -42,7 +42,7 @@ const Activity = () => {
   })
 
     const renderItem = ({ item }) => (
-        <ActivityCard image ={item.picture} day = {item.day} kilometer = {item.distance} avgPace = {item.averagepace} time = {item.time}/>
+        <ActivityCard image ={item.uri} day = {item.day} kilometer = {item.distance} avgPace = {item.averagepace} time = {item.time}/>
       );
   return (
     <View style = {{paddingHorizontal:12}}>

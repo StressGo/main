@@ -114,34 +114,35 @@ const [startLocation,setstartLocation] = useState({
     const stopTracking = () => {
       // setdrawLine(prevDrawLine => !prevDrawLine);
       sethasStarted(prevhasStarted => !prevhasStarted);
-      setEnd(prevEnd => !prevEnd);
+      setDistance(0);
+      setSeconds(0);
     }
 
     
-    
+    // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     setUser(user.uid);
+    //   } else {
+    //     console.log("no user found")
+    //   }
+    // })
 
-    const colRef = collection(db, 'user_data');
+    // const colRef = collection(db, 'user_data');
 
-    useEffect(() => {
-      if  (end == true) {
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-            setUser(user.uid);
-          } else {
-            console.log("no user found")
-          }
-        })
-        setSend({
-          averagepace: String(calculatePace(distance, seconds)),
-          distance: distance.toFixed(2),
-          time: String(showTime(seconds)),
-          day: getDayname(),
-          uid: user,
-          picture:'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg',
-        })
-        const res = addDoc(colRef, send);
-      }
-    }, [end]);
+    // useEffect(() => {
+    //   if  (end == true) {
+    //     setSend({
+    //       averagepace: String(calculatePace(distance, seconds)),
+    //       distance: distance.toFixed(2),
+    //       time: String(showTime(seconds)),
+    //       day: getDayname(),
+    //       uid: auth.uid,
+    //       picture:'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg',
+    //     })
+    //     const res = addDoc(colRef, send);
+        
+    //   }
+    // }, [end]);
 
     
 
@@ -175,7 +176,7 @@ const [startLocation,setstartLocation] = useState({
 
    <View style = {styles.button}>      
    {hasStarted 
-  ? <AppButton title = "Stop Tracking" onPress={() => {stopTracking
+  ? <AppButton title = "Stop Tracking" onPress={() => {setEnd(true), stopTracking
       navigation.navigate("summary", {distance: distance.toFixed(2), 
         time: showTime(seconds), pace: calculatePace(distance,seconds)})}} />
 

@@ -20,7 +20,7 @@ function EventsGo_main(props) {
                     color="white" 
                     size={35}
                     onPress={() => {
-                        navigation.replace("Home")
+                        navigation.replace("tabs")
                   }} />
                 </View>
                 <TouchableOpacity onPress={() => {
@@ -33,9 +33,8 @@ function EventsGo_main(props) {
                 </View>
             
                 <View style = {styles.secondary}>
-                <TouchableOpacity onPress={() => {
-                      navigation.replace("EventsPage")
-                }}>
+                <TouchableOpacity onPress={null
+                }>
                     <Text style = {styles.bottomButton} >
                         JOIN AN EVENT
                     </Text>

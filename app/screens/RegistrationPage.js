@@ -22,7 +22,7 @@ function RegistrationPage(props) {
     createUserWithEmailAndPassword(auth,email,password2)
     .then(userInfo => {
       const user = userInfo.user;
-      navigation.replace("Home")
+      navigation.navigate("Home")
       console.log(user.email) //testing
     })
     .catch(error => alert(error.message))
@@ -43,7 +43,7 @@ function RegistrationPage(props) {
                     <MaterialCommunityIcons name='arrow-left-bold' 
                     color={colors.primary}
                     size={35}
-                    onPress={() => navigation.replace("login")} />
+                    onPress={() => navigation.nagivate("login")} />
         </View>
         <Text style = {styles.registrationText}>
             Create New Account

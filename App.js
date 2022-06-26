@@ -9,6 +9,8 @@ import Map from './app/screens/Map';
 import RunScreen from './app/screens/RunScreen';
 import SummaryScreen from './app/screens/SummaryScreen';
 import { StyleSheet, View } from 'react-native';
+import Connect_me from './app/screens/Connect_me'
+import Found_runner from './app/screens/Found_Runner';
 
 
 
@@ -25,6 +27,8 @@ const App = () => {
         <Stack.Screen options = { {headerShown: false}} name ="Register" component={RegistrationPage} /> 
         <Stack.Screen options = { {headerShown: false}} name ="tabs" component={Tabs} /> 
         <Stack.Screen options = { {headerShown: false}} name ="summary" component={SummaryScreen} /> 
+        <Stack.Screen options = { {headerShown: false}} name ="connect_me" component={Connect_me} /> 
+        <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={Found_runner} /> 
       </Stack.Navigator>
     </NavigationContainer>
       

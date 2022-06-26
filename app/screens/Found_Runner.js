@@ -3,13 +3,15 @@ import { View, StyleSheet, Image, Text, ImageBackground } from 'react-native'
 import colors from '../config/colors';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/core';
+import Screen from '../components/Screen';
 
 function Found_runner(props) {
     const navigation = useNavigation()
     return (
+        <Screen>
         <View>
             <MaterialCommunityIcons name='arrow-left-bold' color="black" size={35} onPress={() => {
-                        navigation.replace("Connect_me")
+                        navigation.replace("connect_me")
                   }} />
         <ImageBackground 
             source= {require('../assets/splash-page.jpg')}
@@ -29,6 +31,7 @@ function Found_runner(props) {
             </Text>
         </ImageBackground>
         </View>
+        </Screen>
     );
 }
 
