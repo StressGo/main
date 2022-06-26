@@ -1,15 +1,25 @@
 import React , {useState , useRef} from 'react'
 import {SafeAreaView , Text , TextInput, View , Pressable, Keyboard, KeyboardAvoidingView, Platform, Image , StyleSheet} from 'react-native'
 import FontAwesome from "react-native-vector-icons/FontAwesome"
+import Map from './Map'
+import { NavigationContainer, TabRouter, useNavigation, Navigation } from '@react-navigation/native';
+import {MaterialCommunityIcons} from '@expo/vector-icons'
 
 
 const SummaryScreen = (props) => {
   const [title, setTitle] = useState("Type something here");
   const TextInputRef = useRef();
+  const navigation = useNavigation();
   return (
     <Pressable style= {styles.MainContainer} onPress={() => Keyboard.dismiss()}>
         
-        <Text style = {styles.Text}> yo.</Text>
+        <Text style = {styles.Text}></Text>
+        <MaterialCommunityIcons name='close' 
+                    color="black" 
+                    size={35}
+                    onPress={() => {
+                        navigation.replace("tabs")
+                  }} />
         <Pressable style = {styles.Pressable} onPress = {() => TextInputRef.current.focus()}>
             <TextInput value = {title} onChangeText = {input => setTitle(input)} style = {styles.TextInput} ref = {TextInputRef}/>
             <FontAwesome name = "pencil" size = {25} />
@@ -18,7 +28,7 @@ const SummaryScreen = (props) => {
         <KeyboardAvoidingView behavior = {Platform.OS == 'ios' ? "padding" :'height'}>
 
         <View style = {{marginTop: 12}}>
-            <Text style = {styles.Textlarge}>2.4</Text>
+            <Text style = {styles.Textlarge}>{12}</Text>
             <Text style = {styles.Text}>Kilometer</Text>
         </View>
 

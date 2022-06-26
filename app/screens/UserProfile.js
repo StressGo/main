@@ -31,33 +31,9 @@ function UserProfile(props) {
                 <Text style = {styles.text}>My name is Aaron, Aaron Jaeger</Text>
                 <View style = {styles.buttonContainer}>
                     <AppButton title = 'Sign out' onPress = {handleSignOut} />
-                    <AppButton title = 'Edit' onPress = {handleSignOut} />
                 </View>
                 </View>
                 <View style = {styles.cardContainer}>
-                    <Card 
-                        title={'NIKE RUN'}
-                        subTitle={'Just Run Lah!'}
-                        image={require('../assets/Nike_KL_Run.jpg')}
-                        onPress = {() => {
-                            navigation.replace("EventsListing_1")
-                    }}
-                    />
-                    <Card 
-                        title={'ADIDAS RUN'}
-                        subTitle={'Impossible to run'}
-                        image={require('../assets/Nike_KL_Run.jpg')}
-                    />
-                    <Card 
-                        title={'ASICS RUN'}
-                        subTitle={'What is Asics?'}
-                        image={require('../assets/Nike_KL_Run.jpg')}
-                    />
-                    <Card 
-                        title={'Gucci RUN'}
-                        subTitle={'Wait what..?'}
-                        image={require('../assets/Nike_KL_Run.jpg')}
-                    />
                     <Text></Text>
                     <Text></Text>
                     <Text></Text>
