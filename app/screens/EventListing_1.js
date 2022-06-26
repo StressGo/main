@@ -5,10 +5,12 @@ import Profile from '../components/Profile';
 import colors from '../config/colors';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/core';
+import Screen from '../components/Screen';
 
 function EventsListing_1(props) {
     const navigation = useNavigation()
     return (
+        <Screen>
         <View>
             
             <Image style = {styles.image} source = {require('../assets/Nike_KL_Run.jpg')} />
@@ -17,7 +19,7 @@ function EventsListing_1(props) {
                     color="white" 
                     size={35}
                     onPress={() => {
-                        navigation.replace("EventsPage")
+                        navigation.replace("tabs")
                   }} />
             </View>
             <View style = {styles.detailsContainer}>
@@ -36,6 +38,7 @@ function EventsListing_1(props) {
             </Text>
             
         </View>
+        </Screen>
     );
 }
 

@@ -46,7 +46,7 @@ const HomeScreen = () => {
         }
     })
 
-      
+    
     
     
   return (
@@ -68,7 +68,7 @@ const HomeScreen = () => {
                 data={events}
                 renderItem={({ item }) => (
                   <View style = {styles.cardContainer}>
-                      <Card title={item.title} subTitle = {item.subTitle} image={String(item.url)} />
+                      <Card title={item.title} subTitle = {item.subTitle} image={String(item.url)} onPress={() => navigation.navigate('listing')} />
                   </View>
                 )}
                 sliderWidth={350}

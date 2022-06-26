@@ -11,6 +11,7 @@ import SummaryScreen from './app/screens/SummaryScreen';
 import { StyleSheet, View } from 'react-native';
 import Connect_me from './app/screens/Connect_me'
 import Found_runner from './app/screens/Found_Runner';
+import EventsListing_1 from './app/screens/EventListing_1';
 
 
 
@@ -29,6 +30,7 @@ const App = () => {
         <Stack.Screen options = { {headerShown: false}} name ="summary" component={SummaryScreen} /> 
         <Stack.Screen options = { {headerShown: false}} name ="connect_me" component={Connect_me} /> 
         <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={Found_runner} /> 
+        <Stack.Screen options = { {headerShown: false}} name ="listing" component={EventsListing_1} /> 
       </Stack.Navigator>
     </NavigationContainer>
       

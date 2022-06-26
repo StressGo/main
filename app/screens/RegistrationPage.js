@@ -43,7 +43,7 @@ function RegistrationPage(props) {
                     <MaterialCommunityIcons name='arrow-left-bold' 
                     color={colors.primary}
                     size={35}
-                    onPress={() => navigation.nagivate("login")} />
+                    onPress={() => navigation.replace("login")} />
         </View>
         <Text style = {styles.registrationText}>
             Create New Account

@@ -24,6 +24,7 @@ import { async } from '@firebase/util';
 
 function EventsPage(props) {
     
+    const navigation = useNavigation()
 
     const [events, setEvents] = useState([]);
     const [bool, setBool] = useState(false);
@@ -77,7 +78,7 @@ function EventsPage(props) {
             data={arr}
             renderItem={({ item }) => (
                 <View style = {styles.cardContainer}>
-                    <Card title={item.title} subTitle = {item.subTitle} image={String(item.url)} />
+                    <Card title={item.title} subTitle = {item.subTitle} image={String(item.url)} onPress={() => navigation.navigate("listing")}/>
                 </View>
             )}
             />
