@@ -5,6 +5,16 @@ import Map from './Map'
 import { NavigationContainer, TabRouter, useNavigation, Navigation } from '@react-navigation/native';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import showTime , {getDayname, getTimeOfDay, calculatePace,calculateDistance} from '../constants/Calculations'
+import AppButton from '../components/AppButton' 
+
+import { Firestore, getDoc, collection, getDocs,
+  addDoc, deleteDoc, doc,
+  query, where, onSnapshot, Document, set, add, setDoc, arrayUnion, updateDoc
+
+} from 'firebase/firestore';
+import {db} from '../../firebase';
+import { auth } from '../../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 const SummaryScreen = ({route}) => {
@@ -12,7 +22,35 @@ const SummaryScreen = ({route}) => {
   const [arr, setArr] = useState([]);
   const TextInputRef = useRef();
   const navigation = useNavigation();
-
+  const [saved, setSaved] = useState(true);
+  
+  const storeEvent = async () => {
+    if (saved) {
+    setSaved(prevsaved => !prevsaved);
+    const docRef = doc(db, "user_data",auth.currentUser.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const ref =  updateDoc (docRef, {run:arrayUnion({ 
+        averagepace: String(route.params.pace),
+        distance: route.params.distance,
+        time: String(route.params.time),
+        day: getDayname(),
+        picture:'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg'
+      })}, 
+     );
+    } else {
+      const ref =  setDoc (docRef, {run:[{ 
+        averagepace: String(route.params.pace),
+        distance: route.params.distance,
+        time: String(route.params.time),
+        day: getDayname(),
+        picture:'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg'
+      }]}, 
+     );
+    }
+     
+  }
+}
   
 
   return (
@@ -50,14 +88,16 @@ const SummaryScreen = ({route}) => {
 
         </View >
 
-        <View style = {styles.ProgressBarContainer}>
-            {/* <Image 
+        {/* <View style = {styles.ProgressBarContainer}>
+             <Image 
               source = {require("../assets/RunningGo.png")} 
-              style = {{height: 100, width: 100}}/> */}
+              style = {{height: 100, width: 100}}/> 
               <Text>Progress bar</Text>
-        </View>
+        </View> */}
         
         </KeyboardAvoidingView>
+
+        <AppButton title = "Save Event" onPress={storeEvent}/>
   
         
     </Pressable>
