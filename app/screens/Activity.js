@@ -5,7 +5,7 @@ import {DATA} from '../constants/dummyData'
 
 import { Firestore, getDoc, collection, getDocs,
   addDoc, deleteDoc, doc,
-  query, where, onSnapshot, Document
+  query, where, onSnapshot, Document, whereEqualTo
 
 } from 'firebase/firestore';
 import {db} from '../../firebase';
@@ -17,7 +17,6 @@ const Activity = () => {
   const [arr, setArr] = useState([]);
   const [bool, setBool] = useState(false)
   const [user, setUser] = useState('')
-  const colRef = collection(db, 'user_data');
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -28,18 +27,21 @@ const Activity = () => {
   })
 
   //Retrieve user entries
-  const q = query(colRef, where('uid', '==', user))
+  // const colRef = doc(db, 'user_data', user).data().getResult()
+  // const q = query(colRef)
 
-  onSnapshot(q, (snapshot) => {
-      const user_data = []
-      snapshot.docs.forEach((doc) => {
-          user_data.push({...doc.data()}) //put the data into an array
-      })
-      if (bool === false) {
-          setArr(user_data);
-          setBool(true)
-      }
-  })
+  // onSnapshot(q, (snapshot) => {
+  //     const user_data = []
+  //     snapshot.docs.forEach((doc) => {
+  //         user_data.push({...doc.data()}) //put the data into an array
+  //     })
+  //     if (bool === false) {
+  //         setArr(user_data);
+  //         setBool(true)
+  //     }
+  // })
+
+  console.log(arr);
 
     const renderItem = ({ item }) => (
         <ActivityCard image ={item.uri} day = {item.day} kilometer = {item.distance} avgPace = {item.averagepace} time = {item.time}/>
