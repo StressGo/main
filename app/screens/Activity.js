@@ -16,32 +16,15 @@ const Activity = () => {
 
   const [arr, setArr] = useState([]);
   const [bool, setBool] = useState(false)
-  const [user, setUser] = useState('')
+  const [userid, setUserid] = useState('')
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      setUser(user.uid);
+      setUserid(user.uid);
     } else {
       console.log("no user found")
     }
   })
-
-  //Retrieve user entries
-  // const colRef = doc(db, 'user_data', user).data().getResult()
-  // const q = query(colRef)
-
-  // onSnapshot(q, (snapshot) => {
-  //     const user_data = []
-  //     snapshot.docs.forEach((doc) => {
-  //         user_data.push({...doc.data()}) //put the data into an array
-  //     })
-  //     if (bool === false) {
-  //         setArr(user_data);
-  //         setBool(true)
-  //     }
-  // })
-
-  console.log(arr);
 
     const renderItem = ({ item }) => (
         <ActivityCard image ={item.uri} day = {item.day} kilometer = {item.distance} avgPace = {item.averagepace} time = {item.time}/>
