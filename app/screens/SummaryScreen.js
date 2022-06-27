@@ -97,7 +97,7 @@ const SummaryScreen = ({route}) => {
         
         </KeyboardAvoidingView>
 
-        <AppButton title = "Save Event" onPress={storeEvent}/>
+        <AppButton title = "Save Event" onPress={() => {storeEvent}}/>
   
         
     </Pressable>
