@@ -3,6 +3,7 @@ import {Keyboard, Text, KeyboardAvoidingView, TouchableWithoutFeedback,ImageBack
 import colors from '../config/colors';
 import AppButton from '../components/AppButton' 
 import RegistrationPage from '../screens/RegistrationPage'
+import {ERRORS} from '../constants/AuthErrors'
 
 /* firebase */
 import {MaterialCommunityIcons} from '@expo/vector-icons'
@@ -35,7 +36,11 @@ function WelcomeScreen() {
         const user = userInfo.user;
         console.log(user.email); //testing
       })
-      .catch(error => alert(error.message))
+      .catch(error => {
+        const errorCode = String(error.code);
+        window.alert(ERRORS[errorCode]);
+        
+      })
   }
 
  

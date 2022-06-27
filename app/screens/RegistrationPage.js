@@ -4,6 +4,7 @@ import AppButton from '../components/AppButton';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 import colors from '../config/colors';
 import { useNavigation } from '@react-navigation/core';
+import {ERRORS} from '../constants/AuthErrors'
 
 import { auth } from '../../firebase'
 import { createUserWithEmailAndPassword } from "firebase/auth"
@@ -25,7 +26,10 @@ function RegistrationPage(props) {
       navigation.navigate("Home")
       console.log(user.email) //testing
     })
-    .catch(error => alert(error.message))
+    .catch(error => {
+      const errorCode = String(error.code);
+      window.alert(ERRORS[errorCode]);
+    })
     } else {
       console.log("wrong password")
     }
