@@ -26,7 +26,7 @@ function UserProfile(props) {
 
     return (
         
-        <View>
+        <ScrollView>
             <Image source = {require('../assets/nike.jpg')} style = {styles.image} />
             <View>
                 <View style = {styles.profileImageContainer}>
@@ -39,15 +39,16 @@ function UserProfile(props) {
                 <View style = {styles.cardContainer}>
                 <Text style = {styles.txt}>Run history</Text>
                     <Activity />
-                    <Text></Text>
-                    <Text></Text>
-                    <Text></Text>
-                    <Text></Text> 
-                    <Text></Text>
+                    
                 </View>
+                
             </View>
+                    <Text></Text>
+                    <Text></Text>
+                    <Text></Text>
+                    
             
-        </View>
+        </ScrollView>
         
     );
 }
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row-reverse'
     },
     image: {
-        height: 220,
+        height: 120,
         width: '100%'
     },
     text: {

@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   text: {
     padding: 30,
     paddingTop: 100,
-    fontSize: 60,
+    fontSize: 40,
     fontFamily: "Roboto",
     fontWeight: 'bold',
     color: colors.primary,

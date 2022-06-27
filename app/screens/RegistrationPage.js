@@ -23,7 +23,7 @@ function RegistrationPage(props) {
     createUserWithEmailAndPassword(auth,email,password2)
     .then(userInfo => {
       const user = userInfo.user;
-      navigation.navigate("Home")
+      navigation.replace("tabs")
       console.log(user.email) //testing
     })
     .catch(error => {
