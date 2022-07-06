@@ -10,6 +10,7 @@ import { signOut } from "firebase/auth";
 import { auth } from '../../firebase';
 import { useNavigation } from '@react-navigation/native';
 import Activity from './Activity';
+import EditUserProfile from './EditUserProfile';
 
 function UserProfile(props) {
 
@@ -33,6 +34,7 @@ function UserProfile(props) {
                 <Image source = {require('../assets/Mr_Aaron.jpg')} style = {styles.profileImage}/> 
                 <Text style = {styles.text}>My name is Aaron, Aaron Jaeger</Text>
                 <View style = {styles.buttonContainer}>
+                    <AppButton title = 'Edit' onPress = {() => navigation.replace('edit')} />
                     <AppButton title = 'Sign out' onPress = {handleSignOut} />
                 </View>
                 </View>
