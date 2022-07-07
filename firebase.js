@@ -3,11 +3,9 @@
 import {initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { Firestore, getDoc, collection, getDocs,
-  addDoc, deleteDoc, doc,
-  query, where, onSnapshot
+import { getStorage } from "firebase/storage";
 
-} from 'firebase/firestore';
+
 
 
 const FIREBASE_APIKEY="AIzaSyD1Hk1asVux06fU55J3FaaYfyIUI4sM1B4"
@@ -27,11 +25,14 @@ const firebaseConfig = {
     messagingSenderId: FIREBASE_MESSAGINGSENDERID,
     appId: FIREBASE_APPID,
     measurementId: FIREBASE_MEASUREMENTID,
+    storageBucket: 'gs://stressgo-3cef0.appspot.com/',
+
   }
 
   const app = initializeApp(firebaseConfig)
   export const auth = getAuth(app);
   export const db = getFirestore(app);
+  export const storage = getStorage(app);
   
 
 

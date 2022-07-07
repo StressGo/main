@@ -34,6 +34,7 @@ function UserProfile(props) {
                 <Text style = {styles.text}>My name is Aaron, Aaron Jaeger</Text>
                 <View style = {styles.buttonContainer}>
                     <AppButton title = 'Sign out' onPress = {handleSignOut} />
+                    <AppButton title = 'Edit' onPress = {() => navigation.replace('edit')} />
                 </View>
                 </View>
                 <View style = {styles.cardContainer}>
