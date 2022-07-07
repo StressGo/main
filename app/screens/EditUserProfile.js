@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform } from 'react-native';
+import { Button, Image, View, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import AppButton from '../components/AppButton';
+import {MaterialCommunityIcons} from '@expo/vector-icons'
+import colors from '../config/colors';
+import { useNavigation } from '@react-navigation/core';
+
 
 import { storage } from '../../firebase';
 import { auth } from '../../firebase';
-import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
+import { uploadBytes, ref, getDownloadURL, uploadString } from 'firebase/storage';
+
+import { Firestore, getDoc, collection, getDocs,
+  addDoc, deleteDoc, doc,
+  query, where, onSnapshot, Document, set, add, setDoc, arrayUnion, updateDoc
+
+} from 'firebase/firestore';
+
+import {db} from '../../firebase';
 
 
 export default function ImagePickerExample() {
   const [image, setImage] = useState(null);
   const [upload, setUpload] = useState(false);
+  const [press, setPressed] = useState(false);
+  const [res, setRes] = useState(null);
+ 
+  const navigation = useNavigation();
 
-
+  // for profile picture
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -19,11 +36,14 @@ export default function ImagePickerExample() {
       aspect: [4, 3],
     });
 
-    
-    handleImagePicked(result);
     setImage(result.uri);
-    
+    setRes(result);
+
   };
+
+  function handleButton() {
+   handleImagePicked(res);
+  }
 
   const handleImagePicked = async (result) => {
     try {
@@ -58,17 +78,75 @@ export default function ImagePickerExample() {
   
     const photoRef = ref(storage, 'user_profile_pictures/' + auth.currentUser.uid + '/' + auth.currentUser.uid);
     const result = await uploadBytes(photoRef, blob);
+    alert('image uploaded')
 
     blob.close();
 
     return await getDownloadURL(photoRef);
 
   } 
+
+  //status
+  async function writeStatus() {
+    const docRef = doc(db, "user_status", auth.currentUser.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      await updateDoc(docRef, {status: "I love candy"})
+    } else {
+      await setDoc(docRef, {status: "I love candy"})
+    }
+  }
+  
+
   
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-    </View>
+    <View>
+            <View style = {styles.backIcon}>
+                    <MaterialCommunityIcons name='arrow-left-bold' 
+                    color={colors.primary}
+                    size={35}
+                    onPress={() => navigation.replace("tabs")} />
+            </View>
+            <View style = {styles.AddProfilePicContainer}>
+            <TouchableOpacity style = {styles.avatarPlaceholder} onPress={pickImage}>
+            {image == null && <Image 
+                source = {require('../assets/AddProfilePic.png')}
+                style = {styles.AddProfilePic}  />}
+            {image != null && <Image 
+                source = {{ uri: image }}
+                style = {styles.AddProfilePic}
+            />}
+            </TouchableOpacity>
+            </View>
+            <View style = {styles.button}>
+                <AppButton title = 'Upload' onPress = {writeStatus} />
+            </View>
+        </View>
   );
 }
+
+const styles = StyleSheet.create({
+  AddProfilePic: {
+      alignSelf:'center',
+      height: 150,
+      width: 150,
+      borderRadius: 79,
+    },
+    AddProfilePicContainer: {
+      paddingBottom: 30,
+    },
+    avatarPlaceholder:{
+      width: 150,
+      height: 150,
+      borderRadius: 79,
+      alignSelf: 'center',
+      top: 180,
+    },
+    backIcon:{
+      top: 40,
+      paddingLeft: 15
+  },
+  button: {
+      top: 300,
+  }
+})
