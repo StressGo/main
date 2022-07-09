@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Button, Image, View, Platform, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AppButton from '../components/AppButton';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
@@ -25,6 +25,7 @@ export default function ImagePickerExample() {
   const [upload, setUpload] = useState(false);
   const [press, setPressed] = useState(false);
   const [res, setRes] = useState(null);
+  const [status, setStatus] = useState('');
  
   const navigation = useNavigation();
 
@@ -43,6 +44,7 @@ export default function ImagePickerExample() {
 
   function handleButton() {
    handleImagePicked(res);
+   writeStatus();
   }
 
   const handleImagePicked = async (result) => {
@@ -91,9 +93,9 @@ export default function ImagePickerExample() {
     const docRef = doc(db, "user_status", auth.currentUser.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      await updateDoc(docRef, {status: "I love candy"})
+      await updateDoc(docRef, {status: status})
     } else {
-      await setDoc(docRef, {status: "I love candy"})
+      await setDoc(docRef, {status: status})
     }
   }
   
@@ -101,12 +103,7 @@ export default function ImagePickerExample() {
   
   return (
     <View>
-            <View style = {styles.backIcon}>
-                    <MaterialCommunityIcons name='arrow-left-bold' 
-                    color={colors.primary}
-                    size={35}
-                    onPress={() => navigation.replace("tabs")} />
-            </View>
+
             <View style = {styles.AddProfilePicContainer}>
             <TouchableOpacity style = {styles.avatarPlaceholder} onPress={pickImage}>
             {image == null && <Image 
@@ -118,8 +115,28 @@ export default function ImagePickerExample() {
             />}
             </TouchableOpacity>
             </View>
+
+            <View style={styles.backIcon}>
+            <MaterialCommunityIcons name='arrow-left-bold' 
+                    color={colors.primary}
+                    size={35}
+                    onPress={() => {
+                      navigation.replace("tabs")
+                    }}
+                    />
+            </View>
+
+            <TextInput
+              placeholder="What's on your mind?"
+              value={status}
+              onChangeText={text => setStatus(text)}
+              maxLength={35}
+              style={styles.textInput}>
+          
+            </TextInput>
+
             <View style = {styles.button}>
-                <AppButton title = 'Upload' onPress = {writeStatus} />
+                <AppButton title = 'Upload' onPress = {handleButton} />
             </View>
         </View>
   );
@@ -143,10 +160,22 @@ const styles = StyleSheet.create({
       top: 180,
     },
     backIcon:{
-      top: 40,
-      paddingLeft: 15
+      bottom: 130,
+      paddingLeft: 15,
+      width: 45,
   },
   button: {
       top: 300,
+  },
+  textInput: {
+    height: 50,
+    borderColor: "#000000",
+    borderBottomWidth: 1,
+    marginBottom: 30,
+    backgroundColor: 'white',
+    width: '80%',
+    alignSelf: 'center',
+    top: 200,
+    
   }
 })
