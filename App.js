@@ -13,6 +13,7 @@ import Connect_me from './app/screens/Connect_me'
 import Found_runner from './app/screens/Found_Runner';
 import EventsListing_1 from './app/screens/EventListing_1';
 import ImagePickerExample from './app/screens/EditUserProfile';
+import ForgetPasssword from './app/screens/ForgetPasssword';
 
 
 
@@ -33,8 +34,10 @@ const App = () => {
         <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={Found_runner} /> 
         <Stack.Screen options = { {headerShown: false}} name ="listing" component={EventsListing_1} /> 
         <Stack.Screen options = { {headerShown: false}} name ="edit" component={ImagePickerExample} /> 
+        <Stack.Screen options = { {headerShown: false}} name ="forgetPassword" component={ForgetPasssword} /> 
       </Stack.Navigator>
     </NavigationContainer>
+    
       
      );
     

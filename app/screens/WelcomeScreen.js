@@ -43,6 +43,7 @@ function WelcomeScreen() {
       })
   }
 
+
  
   return (
     <KeyboardAvoidingView
@@ -88,6 +89,7 @@ function WelcomeScreen() {
           <View style={styles.btnContainer}>
             <AppButton title="Login" onPress={login} />
             <AppButton title="Register" onPress={() => navigation.replace('Register')} />
+            <AppButton title="Forget Password?" onPress={() => navigation.replace('forgetPassword')} />
           </View>
         </View>
       </TouchableWithoutFeedback>
