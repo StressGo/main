@@ -15,6 +15,7 @@ import { Firestore, getDoc, collection, getDocs,
 
 } from 'firebase/firestore';
 
+import { ProgressBar} from 'react-native-paper';
 
 
 import {db} from '../../firebase';
@@ -47,8 +48,6 @@ const HomeScreen = () => {
     })
 
     
-    
-    
   return (
     
         <View style={styles.container}>
@@ -75,6 +74,7 @@ const HomeScreen = () => {
                 itemWidth={350}
               />
           </View>
+            <ProgressBar progress={0.5} />
           <View style = {styles.button}>
           </View>
           </ImageBackground>
