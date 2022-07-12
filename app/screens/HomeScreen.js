@@ -17,9 +17,11 @@ import { Firestore, getDoc, collection, getDocs,
 
 
 
+
 import {db} from '../../firebase';
 import { async } from '@firebase/util';
 import colors from '../config/colors';
+import Progress from '../components/Progress';
 
 
 
@@ -29,8 +31,15 @@ const HomeScreen = () => {
 
     const [events, setEvents] = useState([]);
     const [bool, setBool] = useState(false);
+    const [dist, setDist] = useState(0);
     const [arr, setArr] = useState(events);
     const colRef = collection(db, 'events');
+
+
+    //tiers
+    const gold = 1000;
+    const silver = 500;
+    const bronze = 100;
     
     
     const q = query(colRef, where('type', '>=', 0))
@@ -46,7 +55,17 @@ const HomeScreen = () => {
         }
     })
 
-    
+    //retrieve total distance
+    useEffect( async () => {
+      const docRef = doc(db, "user_totalDistance", auth.currentUser.uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+          setDist(docSnap.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+    },[])
     
     
   return (
@@ -59,8 +78,14 @@ const HomeScreen = () => {
           style = {styles.imageContainer}
             >
           <Text style = {styles.text} >Hello there!</Text> 
+          <View style={styles.progress}>
+            {dist >= silver && <Progress step={dist} steps={gold} height={20} color = {colors.gold} txt = {'gold'}/>}
+            {dist >= bronze && dist < silver && <Progress step={dist} steps={silver} height={20} color = {colors.silver} txt = {'silver'}/>}
+            {dist < bronze && <Progress step={dist} steps={bronze} height={20} color = {colors.bronze} txt = {'bronze'}/>}
+          </View>
           <Text style = {styles.smalltext} >Ongoing events:</Text> 
           <Text style = {styles.smalltext} >(slide to find out more!)</Text> 
+          
           <View style = {styles.carousel}>
               <Carousel
                 layout='tinder'
@@ -75,8 +100,7 @@ const HomeScreen = () => {
                 itemWidth={350}
               />
           </View>
-          <View style = {styles.button}>
-          </View>
+          
           </ImageBackground>
         </View>
     
@@ -112,6 +136,10 @@ const styles = StyleSheet.create({
   smalltext: {
     paddingLeft: 30,
   },
+  progress: {
+    padding: 30,
+    paddingTop: 0,
+  }
 })
 
 export default HomeScreen
