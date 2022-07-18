@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { StyleSheet, TextInput, View, Keyboard, Button, Text, useWindowDimensions} from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 import SendingFriendRequest from '../components/SendingFriendRequest' 
@@ -12,6 +12,7 @@ import { Firestore, getDoc, collection, getDocs,
   import { auth } from '../../firebase';
   import { storage } from '../../firebase';
   import { ref, getDownloadURL } from "firebase/storage";
+  
 
 
 const SearchFriends = () => {
@@ -19,6 +20,8 @@ const SearchFriends = () => {
     const [clicked, setClicked] = useState(false);
     const [Friend,setFriend] = useState("");
     const [Found, setFound] = useState(false);
+    const [search, setSearched] = useState(false);
+    const [downloadURL, setdownloadURL] = useState('');
 
     const searchFriend = async () => {
         // check whether user exists
@@ -43,6 +46,16 @@ const SearchFriends = () => {
 
 
     }
+
+
+    useEffect(async () => {
+      const pathReference = ref(storage, 
+          '/user_profile_pictures/' + Friend + '/' + Friend);
+      setdownloadURL(await getDownloadURL(pathReference));
+      console.log(downloadURL)
+    }, [search])
+
+
 
     const addFriend = async () => {
         const friendsRef = collection(db, "friendships");
@@ -96,7 +109,7 @@ const SearchFriends = () => {
               Keyboard.dismiss();
               setClicked(false);
               searchFriend()
-              
+              setSearched(!search)
             }}
           ></Button>
         </View>
@@ -106,7 +119,7 @@ const SearchFriends = () => {
         <Text>Search Results:</Text>
         {Found && (
             <SendingFriendRequest 
-            url = "https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg"
+            url = {String(downloadURL)} //user_id
             username = "Loy Hong Sheng"
             onPress = {addFriend}/>
 
