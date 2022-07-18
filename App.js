@@ -30,7 +30,7 @@ const App = () => {
         <Stack.Screen options = { {headerShown: false}} name ="summary" component={SummaryScreen} /> 
         <Stack.Screen options = { {headerShown: false}} name ="connect_me" component={Connect_me} /> 
         {/* <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={Found_runner} />  */}
-        <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={SearchFriends} />
+        <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={FriendsRequest} />
         <Stack.Screen options = { {headerShown: false}} name ="listing" component={EventsListing_1} /> 
         <Stack.Screen options = { {headerShown: false}} name ="edit" component={ImagePickerExample} /> 
         <Stack.Screen options = { {headerShown: false}} name ="forgetPassword" component={ForgetPasssword} /> 

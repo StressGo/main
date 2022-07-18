@@ -22,14 +22,17 @@ const FriendsRequest = () => {
         const doc1 = await getDocs(q1);
         if (!doc1.empty) {
             doc1.forEach((doc) => {
-            tmparr.push(doc.data()["user_1"])
-            console.log(get_url(doc.data()["user_1"]))
+            tmparr.push({user: doc.data()["user_1"],
+                         id: doc.id})
           });
         }
         setArr(tmparr);
+        
        
         
       }, []);
+
+      console.log(arr);
 
       //get profile pic
 const get_url = async (user_id) => {
@@ -42,35 +45,23 @@ const get_url = async (user_id) => {
 
 
   // Add friend
-  const addFriend = async (user_id) => {
-    const friendsRef = collection(db, "friendships");
-    const q1 = query(friendsRef, where("user_1", "==",user_id), where("user_2", "==", auth.currentUser.uid));
-    const doc1 = await getDocs(q1);
-    if (!doc1.empty) {
-        doc1.forEach((doc) => {
-             const ref = updateDoc(doc, {
+  const addFriends = async (doc_id) => {
+    const friendsdocRef = doc(db, "friendships", doc_id);
+    const ref = updateDoc(friendsdocRef, {
                 status: "accepted"
             });
-        })
-    }
     }
 
     // Rejected request
-    const rejectFriend = async (user_id) => {
-        const friendsRef = collection(db, "friendships");
-        const q1 = query(friendsRef, where("user_1", "==",user_id), where("user_2", "==", auth.currentUser.uid));
-        const doc1 = await getDocs(q1);
-        if (!doc1.empty) {
-            doc1.forEach((doc) => {
-                const ref = deleteDoc(doc);
-            })
-        }
-
+    const rejectFriend = async (doc_id) => {
+      const friendsdocRef = doc(db, "friendships", doc_id);
+      const ref = deleteDoc(friendsdocRef);
     }
   
 
       const renderItem = ({ item }) => (
-        <PendingFriendRequest image = {item} username = {item} addFriend = {() => addFriend(item)}/> );
+        <PendingFriendRequest image = {String(get_url(item.user))} username = {item.user} addFriend = {() => addFriends(item.id)}
+                              deleteFriend = {() => rejectFriend(item.id)}/> );
      
 
   return (
@@ -78,7 +69,6 @@ const get_url = async (user_id) => {
         <FlatList
         data={arr}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
         showsVerticalScrollIndicator = {false}
       />
     

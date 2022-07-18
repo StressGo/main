@@ -26,21 +26,33 @@ const FriendsList = () => {
     const doc2 = await getDocs(q2);
     if (!doc1.empty) {
       doc1.forEach((doc) => {
-      tmparr.push(doc.data()["user_2"])
-      console.log(get_url(doc.data()["user_2"]))
+      tmparr.push({user: doc.data()["user_2"]})
+      
     });
   }
   if (!doc2.empty) {
     doc2.forEach((doc) => {
-    tmparr.push(doc.data()["user_1"])
-    console.log(get_url(doc.data()["user_1"]))
+    tmparr.push({user: doc.data()["user_1"]})
   });
 }
   setArr(tmparr);
+  console.log(arr);
 
   }, []);
+
+  const renderItem = ({ item }) => (
+    <Friends image = {String(get_url(item.user))} username = {item.user} addFriend = {() => addFriends(item.id)}
+                          deleteFriend = {() => rejectFriend(item.id)}/> );
   
   return (
+    <View style = {{paddingHorizontal:12}}>
+        <FlatList
+        data={arr}
+        renderItem={renderItem}
+        showsVerticalScrollIndicator = {false}
+      />
+    
+    </View>
     
   )
 }
