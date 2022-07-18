@@ -27,14 +27,23 @@ const SummaryScreen = ({route}) => {
   const storeEvent = async () => {
     if (saved) {
     setSaved(prevsaved => !prevsaved);
+    // tracking user's run history 
     const docRef = doc(db, "user_data",auth.currentUser.uid);
     const docSnap = await getDoc(docRef);
+    // tracking user's total distance and updating it
+    const totalDistanceRef = doc(db, "user_totalDistance", auth.currentUser.uid);
+    const totalDistanceSnap = await getDoc(totalDistanceRef);
+    const oldDistance = totalDistanceSnap.data()["totalDistance"]
+    const updateDistance = setDoc(totalDistanceRef, {
+      totalDistance: oldDistance + parseFloat(route.params.distance)
+    });
     if (docSnap.exists()) {
       const ref =  updateDoc (docRef, {run:arrayUnion({ 
         averagepace: String(route.params.pace),
         distance: route.params.distance,
         time: String(route.params.time),
         day: getDayname(),
+        timeofDay: getTimeOfDay(),
         picture:'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg'
       })}, 
      );
@@ -44,6 +53,7 @@ const SummaryScreen = ({route}) => {
         distance: route.params.distance,
         time: String(route.params.time),
         day: getDayname(),
+        timeofDay: getTimeOfDay(),
         picture:'https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg'
       }]}, 
      );

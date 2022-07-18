@@ -10,10 +10,13 @@ import { Firestore, getDoc, collection, getDocs,
 } from 'firebase/firestore';
 import {db} from '../../firebase';
 import { auth } from '../../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { storage } from '../../firebase';
+import { ref, getDownloadURL } from "firebase/storage";
+
 
 const Activity = () => {
   const [arr,setArr] = useState([]);
+  const [downloadURL, setdownloadURL] = useState('');
 
 useEffect(async () => {
   const docRef = doc(db, "user_data",auth.currentUser.uid);
@@ -21,10 +24,19 @@ useEffect(async () => {
   setArr(docSnap.data()["run"])
 }, []);
 
+//get profile pic
+useEffect(async () => {
+  const pathReference = ref(storage, 
+      '/user_profile_pictures/' + auth.currentUser.uid + '/' + auth.currentUser.uid);
+  setdownloadURL(await getDownloadURL(pathReference));
+  console.log(downloadURL)
+}, [])
+
+
 
 
     const renderItem = ({ item }) => (
-        <ActivityCard image ={item.uri} day = {item.day} kilometer = {item.distance} avgPace = {item.averagepace} time = {item.time}/>
+        <ActivityCard image ={downloadURL} day = {item.day} kilometer = {item.distance} avgPace = {item.averagepace} time = {item.time} timeofDay = {item.timeofDay} />
       );
   return (
     <View style = {{paddingHorizontal:12}}>

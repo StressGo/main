@@ -10,7 +10,7 @@ const ActivityCard = (props) => {
          style = {{width:40, height:40, borderRadius: 8}} />
          <View style ={{marginLeft: 12}}> 
              <Text> {props.day}</Text>
-             <Text> {props.timeofDay}RunScreen</Text>
+             <Text> {props.timeofDay}</Text>
          </View>
     </View>
 
@@ -32,8 +32,6 @@ const ActivityCard = (props) => {
   )
 }
 
-const styles = StyleSheet.create({
-  
-})
+
 
 export default ActivityCard

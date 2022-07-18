@@ -9,6 +9,15 @@ import {ERRORS} from '../constants/AuthErrors'
 import { auth } from '../../firebase'
 import { createUserWithEmailAndPassword } from "firebase/auth"
 
+import { Firestore, getDoc, collection, getDocs,
+  addDoc, deleteDoc, doc,
+  query, where, onSnapshot, Document, set, add, setDoc, arrayUnion, updateDoc
+
+} from 'firebase/firestore';
+import {db} from '../../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+
+
 function RegistrationPage(props) {
   const [email,setEmail] = useState('')
   const [password1,setPassword1] = useState('')
@@ -18,13 +27,17 @@ function RegistrationPage(props) {
   const navigation = useNavigation()
 
 
-  const signUp = () => {
+  const signUp = async () => {
     if (password1 === password2) {
     createUserWithEmailAndPassword(auth,email,password2)
     .then(userInfo => {
       const user = userInfo.user;
       navigation.replace("tabs")
       console.log(user.email) //testing
+      const totalDistanceRef = doc(db, "user_totalDistance", auth.currentUser.uid);
+      const ref = setDoc(totalDistanceRef, {
+        totalDistance: 0
+      });
     })
     .catch(error => {
       const errorCode = String(error.code);
@@ -34,6 +47,7 @@ function RegistrationPage(props) {
       console.log("wrong password")
     }
   }
+
   
     return (
         <KeyboardAvoidingView
