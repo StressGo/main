@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Keyboard, Text, KeyboardAvoidingView, TouchableWithoutFeedback,ImageBackground, StyleSheet, View, Button, Image, TextInput } from "react-native"
+import {Keyboard, TouchableOpacity, Text, KeyboardAvoidingView, TouchableWithoutFeedback,ImageBackground, StyleSheet, View, Button, Image, TextInput } from "react-native"
 import colors from '../config/colors';
 import AppButton from '../components/AppButton' 
 import RegistrationPage from '../screens/RegistrationPage'
@@ -11,6 +11,7 @@ import {MaterialCommunityIcons} from '@expo/vector-icons'
 import { auth } from '../../firebase'
 import { signInWithEmailAndPassword} from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
+
 
 
 
@@ -89,7 +90,9 @@ function WelcomeScreen() {
           <View style={styles.btnContainer}>
             <AppButton title="Login" onPress={login} />
             <AppButton title="Register" onPress={() => navigation.replace('Register')} />
-            <AppButton title="Forget Password?" onPress={() => navigation.replace('forgetPassword')} />
+            <TouchableOpacity style={styles.forget} onPress={() => navigation.replace('forgetPassword')}>
+              <Text style={styles.forget}>Forget Password</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -137,8 +140,12 @@ const styles = StyleSheet.create({
   },
   txt: {
     paddingBottom: 60,
+  },
+  forget: {
+    color: colors.white,
+    alignSelf: 'center',
+    paddingTop: 5,
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
   }
 });
-
-
-
