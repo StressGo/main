@@ -38,6 +38,15 @@ function RegistrationPage(props) {
       const ref = setDoc(totalDistanceRef, {
         totalDistance: 0
       });
+        //status
+    const docRef = doc(db, "user_status", auth.currentUser.uid);
+    const statusRef = setDoc(docRef , {
+      Cycle: false,
+      Swim: false,
+      Run: false,
+      achievement: "bronze",
+      username: username
+    })
     })
     .catch(error => {
       const errorCode = String(error.code);

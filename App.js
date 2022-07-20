@@ -16,6 +16,9 @@ import ImagePickerExample from './app/screens/EditUserProfile';
 import ForgetPasssword from './app/screens/ForgetPasssword';
 import FriendsRequest from './app/screens/FriendsRequest';
 import SearchFriends from './app/screens/SearchFriends';
+import FriendsList from './app/screens/FriendsList';
+
+import Chat from './app/components/Chat';
 
 
 const Stack = createNativeStackNavigator();
@@ -30,14 +33,13 @@ const App = () => {
         <Stack.Screen options = { {headerShown: false}} name ="summary" component={SummaryScreen} /> 
         <Stack.Screen options = { {headerShown: false}} name ="connect_me" component={Connect_me} /> 
         {/* <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={Found_runner} />  */}
-        <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={FriendsRequest} />
+        <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={Chat} />
         <Stack.Screen options = { {headerShown: false}} name ="listing" component={EventsListing_1} /> 
         <Stack.Screen options = { {headerShown: false}} name ="edit" component={ImagePickerExample} /> 
         <Stack.Screen options = { {headerShown: false}} name ="forgetPassword" component={ForgetPasssword} /> 
       </Stack.Navigator>
     </NavigationContainer>
-    
-    
+
     
 
     
