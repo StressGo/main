@@ -17,6 +17,7 @@ import ForgetPasssword from './app/screens/ForgetPasssword';
 import FriendsRequest from './app/screens/FriendsRequest';
 import SearchFriends from './app/screens/SearchFriends';
 import FriendsList from './app/screens/FriendsList';
+import ChatScreen from './app/screens/ChatScreen';
 
 import Chat from './app/components/Chat';
 
@@ -33,10 +34,11 @@ const App = () => {
         <Stack.Screen options = { {headerShown: false}} name ="summary" component={SummaryScreen} /> 
         <Stack.Screen options = { {headerShown: false}} name ="connect_me" component={Connect_me} /> 
         {/* <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={Found_runner} />  */}
-        <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={Chat} />
+        <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={FriendsList} />
         <Stack.Screen options = { {headerShown: false}} name ="listing" component={EventsListing_1} /> 
         <Stack.Screen options = { {headerShown: false}} name ="edit" component={ImagePickerExample} /> 
         <Stack.Screen options = { {headerShown: false}} name ="forgetPassword" component={ForgetPasssword} /> 
+        <Stack.Screen options = { {headerShown: false}} name ="chatScreen" component={ChatScreen} /> 
       </Stack.Navigator>
     </NavigationContainer>
 

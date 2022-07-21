@@ -26,7 +26,7 @@ function EventsGo_main(props) {
                   }} />
                 </View>
                 <TouchableOpacity onPress={() => {
-                      navigation.replace("search_friends")
+                      navigation.replace("Found_runner")
                 }}>
                     <Text style = {styles.topButton} >
                         RUNNERS NEAR ME

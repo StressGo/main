@@ -98,12 +98,7 @@ const SummaryScreen = ({route}) => {
 
         </View >
 
-        {/* <View style = {styles.ProgressBarContainer}>
-             <Image 
-              source = {require("../assets/RunningGo.png")} 
-              style = {{height: 100, width: 100}}/> 
-              <Text>Progress bar</Text>
-        </View> */}
+        
         
         </KeyboardAvoidingView>
 

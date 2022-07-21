@@ -2021,6 +2021,11 @@
   resolved "https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
+"@react-native-clipboard/clipboard@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@react-native-clipboard/clipboard/-/clipboard-1.10.0.tgz#605e784ed5435059c9b5db52b2d112f9fd09c409"
+  integrity sha512-1L+I0vmeUJgMi8MnNsqI00391/RFLkmmxj9qAuOS2madpvce/oNqJb8Pwk2Fc/uxIJSxOckTpq+dQwyPU6s+7w==
+
 "@react-native-community/cli-debugger-ui@^5.0.1":
   version "5.0.1"
   resolved "https://registry.npmjs.org/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-5.0.1.tgz"
@@ -5244,6 +5249,11 @@ expo-cli@^5.0.1:
     uuid "^8.0.0"
     wrap-ansi "^7.0.0"
     xdl "59.2.40"
+
+expo-clipboard@~2.1.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/expo-clipboard/-/expo-clipboard-2.1.1.tgz#77a506eb70918e6a4708760e6cfb0fafdc18192d"
+  integrity sha512-ay4zv7JGIWT/lqFsonWK8BQ4FuMLaSNFg5gaYJQcIZgZoCyF9f7GRh1HrV3tA0rCPA3i9T6Kt8/8vMMrraH9RQ==
 
 expo-constants@~13.0.2:
   version "13.0.2"
@@ -9804,6 +9814,11 @@ react-is@^17.0.1:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+
+react-native-bouncy-checkbox@^2.1.10:
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/react-native-bouncy-checkbox/-/react-native-bouncy-checkbox-2.1.10.tgz#c72b3744f90902296e067a53d97748de3451619b"
+  integrity sha512-znKVSJQ71+NRTcOG9zuMXBRrUgFsUutGbQoOwasRyVlrJU4djX1Ny0CvCMgOy/Fh+lu9qdLtQFUQLfKwnWXt3Q==
 
 react-native-codegen@^0.0.6:
   version "0.0.6"

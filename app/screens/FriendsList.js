@@ -12,7 +12,7 @@ import { auth } from '../../firebase';
 import { storage } from '../../firebase';
 import { ref, getDownloadURL } from "firebase/storage";
 
-const FriendsList = () => {
+const FriendsList = ({navigation}) => {
 
   const [arr,setArr] = useState([]);
   
@@ -26,13 +26,15 @@ const FriendsList = () => {
     const doc2 = await getDocs(q2);
     if (!doc1.empty) {
       doc1.forEach((doc) => {
-      tmparr.push({user: doc.data()["user_2"]})
+      tmparr.push({user: doc.data()["user_2"],
+                   id: doc.id})
       
     });
   }
   if (!doc2.empty) {
     doc2.forEach((doc) => {
-    tmparr.push({user: doc.data()["user_1"]})
+    tmparr.push({user: doc.data()["user_1"],
+                 id: doc.id})
   });
 }
   setArr(tmparr);
@@ -48,8 +50,15 @@ const get_url = async (user_id) => {
   
 }
 
+const openChat = (docid) => {
+  navigation.navigate("chatScreen", {
+    docId: docid
+  })
+}
   const renderItem = ({ item }) => (
-    <Friend image = {String(get_url(item.user))} username = {item.user} /> );
+    <Friend  username = {item.user} chat = {() => {
+      openChat(item.id)
+    }} /> );
   
   return (
     <View style = {{paddingHorizontal:12}}>
