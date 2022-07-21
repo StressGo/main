@@ -12,7 +12,7 @@ import { Firestore, getDoc, collection, getDocs,
   import { auth } from '../../firebase';
   import { storage } from '../../firebase';
   import { ref, getDownloadURL } from "firebase/storage";
-  
+  import * as Clipboard from 'expo-clipboard';
 
 
 const SearchFriends = () => {
@@ -22,6 +22,17 @@ const SearchFriends = () => {
     const [Found, setFound] = useState(false);
     const [search, setSearched] = useState(false);
     const [downloadURL, setdownloadURL] = useState('');
+    const [copiedText, setCopiedText] = React.useState('');
+
+    const copyToClipboard = async () => {
+      await Clipboard.setStringAsync(Friend);
+      alert("User ID copied to clipboard!")
+    };
+
+    const fetchCopiedText = async () => {
+      const text = await Clipboard.getStringAsync();
+      setCopiedText(text);
+    };
 
     const searchFriend = async () => {
         // check whether user exists
@@ -110,6 +121,7 @@ const SearchFriends = () => {
               setClicked(false);
               searchFriend()
               setSearched(!search)
+              copyToClipboard();
             }}
           ></Button>
         </View>

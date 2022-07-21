@@ -6,6 +6,8 @@ import { useNavigation } from '@react-navigation/core';
 import {MaterialCommunityIcons} from '@expo/vector-icons'
 
 
+
+
 function EventsGo_main(props) {
     const navigation = useNavigation()
 
@@ -24,7 +26,7 @@ function EventsGo_main(props) {
                   }} />
                 </View>
                 <TouchableOpacity onPress={() => {
-                      navigation.replace("Found_runner")
+                      navigation.replace("search_friends")
                 }}>
                     <Text style = {styles.topButton} >
                         RUNNERS NEAR ME
