@@ -36,13 +36,20 @@ const FriendsList = () => {
   });
 }
   setArr(tmparr);
-  console.log(arr);
 
   }, []);
 
+   //get profile pic
+const get_url = async (user_id) => {
+  const pathReference = ref(storage, 
+   '/user_profile_pictures/' + user_id + '/' + user_id);
+   const url = await getDownloadURL(pathReference);
+   return url;
+  
+}
+
   const renderItem = ({ item }) => (
-    <Friends image = {String(get_url(item.user))} username = {item.user} addFriend = {() => addFriends(item.id)}
-                          deleteFriend = {() => rejectFriend(item.id)}/> );
+    <Friend image = {String(get_url(item.user))} username = {item.user} /> );
   
   return (
     <View style = {{paddingHorizontal:12}}>

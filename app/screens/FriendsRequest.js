@@ -4,7 +4,7 @@ import {View , Text, Image , FlatList} from 'react-native'
 
 import { Firestore, getDoc, collection, getDocs,
     addDoc, deleteDoc, doc,
-    query, where, onSnapshot, Document, whereEqualTo, waitForPendingWrites, updateDoc
+    query, where, onSnapshot, Document, whereEqualTo, waitForPendingWrites, updateDoc, setDoc
   
   } from 'firebase/firestore';
   import {db} from '../../firebase';
@@ -50,6 +50,9 @@ const get_url = async (user_id) => {
     const ref = updateDoc(friendsdocRef, {
                 status: "accepted"
             });
+    // Add chat database for each friendship using its unique doc id 
+    const chatDocRef = doc(db, "messages", doc_id);
+    const chatRef = setDoc(chatDocRef, {message: []});
     }
 
     // Rejected request
