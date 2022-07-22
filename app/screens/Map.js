@@ -96,7 +96,11 @@ const [startLocation,setstartLocation] = useState({
             
 
   const startTracking = () => {
+      if (startLocation["latitude"] == 0 && startLocation["longitude"] == 0) {
+        window.alert("Still tracking current Location...Please try again in a few seconds")
+      } else {
       sethasStarted(prevhasStarted => !prevhasStarted);
+      }
     }
 
 
@@ -157,13 +161,13 @@ const [startLocation,setstartLocation] = useState({
   
   <View style = {{ textAlign: "center", padding: 20}}>
             <Text style = {styles.Textlarge}>{distance.toFixed(2)}</Text>
-            <Text style = {styles.Text}>Kilometer</Text>
+            <Text style = {styles.Text}>Kilometers</Text>
         </View>
 
         <View style = {styles.TextContainer}>
             <View>
             <Text style = {styles.Textbold}> {calculatePace(distance,seconds)}</Text>
-            <Text style = {styles.Text}> Pace</Text>
+            <Text style = {styles.Text}> Pace(min/km)</Text>
             </View>
             <View>
             <Text style = {styles.Textbold}> {showTime(seconds)} </Text>

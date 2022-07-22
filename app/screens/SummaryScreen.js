@@ -37,6 +37,7 @@ const SummaryScreen = ({route}) => {
     const updateDistance = setDoc(totalDistanceRef, {
       totalDistance: oldDistance + parseFloat(route.params.distance)
     });
+    window.alert("Event is stored");
     if (docSnap.exists()) {
       const ref =  updateDoc (docRef, {run:arrayUnion({ 
         averagepace: String(route.params.pace),
@@ -102,7 +103,10 @@ const SummaryScreen = ({route}) => {
         
         </KeyboardAvoidingView>
 
-        <AppButton title = "Save Event" onPress={storeEvent}/>
+        <AppButton title = "Save Event" onPress={() => {
+          storeEvent();
+          setTimeout(() => navigation.replace("tabs"), 2500);
+        }}/>
   
         
     </Pressable>

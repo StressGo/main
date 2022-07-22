@@ -59,12 +59,8 @@ const HomeScreen = () => {
     useEffect( async () => {
       const docRef = doc(db, "user_totalDistance", auth.currentUser.uid);
       const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-          setDist(docSnap.data().totalDistance);
-        } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-        }
+      setDist(docSnap.data().totalDistance);
+        
     },[])
     
     console.log(dist)

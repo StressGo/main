@@ -26,19 +26,23 @@ function EventsGo_main(props) {
                   }} />
                 </View>
                 <TouchableOpacity onPress={() => {
-                      navigation.replace("Found_runner")
+                      navigation.replace("FriendsList")
                 }}>
                     <Text style = {styles.topButton} >
-                        RUNNERS NEAR ME
+                        Friends List
                     </Text>
                  </TouchableOpacity>
                 </View>
             
                 <View style = {styles.secondary}>
-                <TouchableOpacity onPress={null
-                }>
+                <TouchableOpacity onPress={
+                    () => {
+                        navigation.replace("FriendsRequests")
+                  }
+                }
+                >
                     <Text style = {styles.bottomButton} >
-                        JOIN AN EVENT
+                        Requests
                     </Text>
                 </TouchableOpacity>
                 </View>
@@ -53,12 +57,12 @@ const styles = StyleSheet.create({
     primary: {
         backgroundColor: colors.primary,
         justifyContent: 'center',
-        height: 380, //unable to use flex
+        height: 300, //unable to use flex
     }, 
     secondary: {
         backgroundColor: colors.secondary,
         justifyContent: 'center',
-        height: 400, //unable to use flex
+        height: 300, //unable to use flex
     },
     topButton: {
         textAlign: 'center',

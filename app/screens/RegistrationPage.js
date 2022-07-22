@@ -11,7 +11,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth"
 
 import { Firestore, getDoc, collection, getDocs,
   addDoc, deleteDoc, doc,
-  query, where, onSnapshot, Document, set, add, setDoc, arrayUnion, updateDoc
+  query, where, onSnapshot, Document, set, add, setDoc, arrayUnion, updateDoc, waitForPendingWrites
 
 } from 'firebase/firestore';
 import {db} from '../../firebase';
@@ -53,7 +53,7 @@ function RegistrationPage(props) {
       window.alert(ERRORS[errorCode]);
     })
     } else {
-      console.log("wrong password")
+      window.alert("Both passwords are not the same")
     }
   }
 
@@ -93,13 +93,16 @@ function RegistrationPage(props) {
           placeholder="Password"
           style={styles.input}
           value = {password1}
-          onChangeText = {text => setPassword1(text)}>
+          onChangeText = {text => setPassword1(text)}
+          secureTextEntry={true} >
+           
          </TextInput>
          <TextInput
           placeholder="Confirm Password"
           style={styles.input}
           value = {password2}
-          onChangeText = {text => setPassword2(text)}>
+          onChangeText = {text => setPassword2(text)}
+          secureTextEntry={true}>
          </TextInput>
       </View>
       <View style={styles.container}>

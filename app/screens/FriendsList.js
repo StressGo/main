@@ -51,7 +51,7 @@ const get_url = async (user_id) => {
 }
 
 const openChat = (docid) => {
-  navigation.navigate("chatScreen", {
+  navigation.navigate("Chat", {
     docId: docid
   })
 }

@@ -46,7 +46,7 @@ const Friend = (props) => {
 
     <View style = {{marginTop:12, flexDirection: "row", justifyContent: "space-between"}}>
         <View>
-        <Text style ={{fontWeight: "bold"}}>{props.username}</Text>
+        <Text style ={{fontWeight: "bold"}}>{username}</Text>
         <View style = {{marginTop:12, flexDirection: "row", justifyContent: "space-between"}}>
         <Text style ={{fontWeight: "bold"}}>Interests: </Text>
         { swim && <MaterialCommunityIcons name= 'swim' 

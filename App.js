@@ -30,24 +30,21 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen options = { {headerShown: false}} name ="login" component={WelcomeScreen} />
         <Stack.Screen options = { {headerShown: false}} name ="Register" component={RegistrationPage} /> 
+        <Stack.Screen options = { {headerShown: false}} name ="home" component={HomeScreen} /> 
         <Stack.Screen options = { {headerShown: false}} name ="tabs" component={Tabs} /> 
         <Stack.Screen options = { {headerShown: false}} name ="summary" component={SummaryScreen} /> 
         <Stack.Screen options = { {headerShown: false}} name ="connect_me" component={Connect_me} /> 
         {/* <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={Found_runner} />  */}
-        <Stack.Screen options = { {headerShown: false}} name ="Found_runner" component={FriendsList} />
+        <Stack.Screen options = { {headerShown: false}} name ="FriendsList" component={FriendsList} />
+        <Stack.Screen options = { {headerShown: false}} name ="FriendsRequest" component={SearchFriends} />
         <Stack.Screen options = { {headerShown: false}} name ="listing" component={EventsListing_1} /> 
         <Stack.Screen options = { {headerShown: false}} name ="edit" component={ImagePickerExample} /> 
         <Stack.Screen options = { {headerShown: false}} name ="forgetPassword" component={ForgetPasssword} /> 
-        <Stack.Screen options = { {headerShown: false}} name ="chatScreen" component={ChatScreen} /> 
+        <Stack.Screen  name = "Chat" component={ChatScreen} /> 
       </Stack.Navigator>
     </NavigationContainer>
 
-    
-
-    
-    
-      
-  );
+    );
     
     
       
