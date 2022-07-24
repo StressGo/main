@@ -37,7 +37,7 @@ function EventsGo_main(props) {
                 <View style = {styles.secondary}>
                 <TouchableOpacity onPress={
                     () => {
-                        navigation.replace("FriendsRequests")
+                        navigation.replace("SearchFriends")
                   }
                 }
                 >

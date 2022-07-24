@@ -66,7 +66,7 @@ const Friend = (props) => {
                     color= "black" 
                     size={40}
                     onPress = {
-                        () => {}
+                        props.removeAccount
                     } />
         
     </View>

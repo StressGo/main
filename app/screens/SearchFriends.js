@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { StyleSheet, TextInput, View, Keyboard, Button, Text, useWindowDimensions} from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
-import SendingFriendRequest from '../components/SendingFriendRequest' 
+import SendingFriendRequest from '../components/SendingFriendRequest'
+import { NavigationContainer, TabRouter, useNavigation, Navigation } from '@react-navigation/native'; 
 
 import { Firestore, getDoc, collection, getDocs,
     addDoc, deleteDoc, doc,
@@ -13,6 +14,7 @@ import { Firestore, getDoc, collection, getDocs,
   import { storage } from '../../firebase';
   import { ref, getDownloadURL } from "firebase/storage";
   import * as Clipboard from 'expo-clipboard';
+import AppButton from "../components/AppButton";
 
 
 const SearchFriends = () => {
@@ -23,6 +25,7 @@ const SearchFriends = () => {
     const [search, setSearched] = useState(false);
     const [downloadURL, setdownloadURL] = useState('');
     const [copiedText, setCopiedText] = React.useState('');
+    const navigation = useNavigation();
 
     const copyToClipboard = async () => {
       await Clipboard.setStringAsync(Friend);
@@ -35,6 +38,10 @@ const SearchFriends = () => {
     };
 
     const searchFriend = async () => {
+        // Check whether Friend is user itself
+        if (Friend == auth.currentUser.uid) {
+          window.alert("Cannot send friend request to yourself")
+        } else {
         // check whether user exists
         const docRef = doc(db, "user_totalDistance",Friend);
         const docSnap = await getDoc(docRef);
@@ -54,6 +61,7 @@ const SearchFriends = () => {
           } else {
             window.alert("No such user is found")
           }
+        }
 
 
     }
@@ -137,6 +145,10 @@ const SearchFriends = () => {
 
         )}
     </View>
+
+    <AppButton onPress = {() => {
+      navigation.navigate("FriendsRequest")
+    }}/>
     </View>
   );
 };

@@ -1,5 +1,13 @@
 
- const padToTwo = (number) => (number <= 9 ? `0${number}` : number);
+ const padToTwo = (number) => {
+    if (number <= 9) {
+      return `0${number}`;
+    } else {
+      return number;
+    } 
+   
+}
+  
 
  const showTime = (seconds) => {
     let hours = 0;
@@ -26,7 +34,6 @@
     return `${padToTwo(hours)}:${padToTwo(remainingMinutes)}:${padToTwo(remainingSeconds)}`;
 }
 
-export default showTime;
 
 // Return name of day 
 export const getDayname = () => {
@@ -99,5 +106,6 @@ export const calculatePace = (dist, time_seconds) => {
         
   };
 
+module.exports = {padToTwo,showTime,getDayname,getTimeOfDay,calculatePace,calculateDistance}
   
 

@@ -55,10 +55,15 @@ const openChat = (docid) => {
     docId: docid
   })
 }
+
+const removeAccount = (docid) => {
+  const friendsdocRef = doc(db, "friendships", docid);
+  const ref = deleteDoc(friendsdocRef);
+}
   const renderItem = ({ item }) => (
     <Friend  username = {item.user} chat = {() => {
       openChat(item.id)
-    }} /> );
+    }} removeAccount = {() => {removeFriend(item.id)}}/> );
   
   return (
     <View style = {{paddingHorizontal:12}}>
