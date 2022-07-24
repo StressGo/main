@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import MapView, {Marker, Callout,Polyline} from 'react-native-maps'
-import {SafeAreaView, View,Text,TouchableOpacity, Image, StyleSheet} from "react-native"
+import { View,Text,TouchableOpacity, Image, StyleSheet} from "react-native"
 import AppButton from '../components/AppButton' 
 import showTime , {getDayname, getTimeOfDay, calculatePace,calculateDistance} from '../constants/Calculations'
 import SummaryScreen from './SummaryScreen'

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {SafeAreaView, View , Text} from 'react-native'
+import { View , Text} from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Map from './Map'
 import Activity from './Activity'

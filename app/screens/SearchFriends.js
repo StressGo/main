@@ -132,7 +132,7 @@ const SearchFriends = () => {
         {Found && (
             <SendingFriendRequest 
             url = {String(downloadURL)} //user_id
-            username = {Friend}
+            username = "Loy Hong Sheng"
             onPress = {addFriend}/>
 
         )}
