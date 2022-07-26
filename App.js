@@ -34,8 +34,8 @@ const App = () => {
         <Stack.Screen options = { {headerShown: false}} name ="tabs" component={Tabs} /> 
         <Stack.Screen options = { {headerShown: false}} name ="summary" component={SummaryScreen} /> 
         <Stack.Screen name ="connect_me" component={Connect_me} /> 
-        <Stack.Screen  name ="FriendsList" component={FriendsList} />
-        <Stack.Screen  name ="SearchFriends" component={SearchFriends} />
+        <Stack.Screen  options = { {headerShown: false}} name ="FriendsList" component={FriendsList} />
+        <Stack.Screen  options = { {headerShown: false}} name ="SearchFriends" component={SearchFriends} />
         <Stack.Screen  name ="FriendsRequest" component={FriendsRequest} />
         <Stack.Screen options = { {headerShown: false}} name ="listing" component={EventsListing_1} /> 
         <Stack.Screen options = { {headerShown: false}} name ="edit" component={ImagePickerExample} /> 

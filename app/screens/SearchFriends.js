@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from "react";
-import { StyleSheet, TextInput, View, Keyboard, Button, Text, useWindowDimensions} from "react-native";
+import { StyleSheet, TextInput, View, Keyboard, Button, Text, useWindowDimensions, TouchableOpacity} from "react-native";
 import { Feather, Entypo } from "@expo/vector-icons";
 import SendingFriendRequest from '../components/SendingFriendRequest'
 import { NavigationContainer, TabRouter, useNavigation, Navigation } from '@react-navigation/native'; 
+import colors from '../config/colors';
+import {MaterialCommunityIcons} from '@expo/vector-icons'
 
 import { Firestore, getDoc, collection, getDocs,
     addDoc, deleteDoc, doc,
@@ -17,6 +19,8 @@ import { Firestore, getDoc, collection, getDocs,
 import AppButton from "../components/AppButton";
 
 
+
+
 const SearchFriends = () => {
 
     const [clicked, setClicked] = useState(false);
@@ -27,8 +31,8 @@ const SearchFriends = () => {
     const [copiedText, setCopiedText] = React.useState('');
     const navigation = useNavigation();
 
-    const copyToClipboard = async () => {
-      await Clipboard.setStringAsync(Friend);
+    const copyToClipboard = () => {
+      Clipboard.setString(Friend);
       alert("User ID copied to clipboard!")
     };
 
@@ -87,6 +91,27 @@ const SearchFriends = () => {
     }
   return (
     <View>
+      <View style = {{paddingTop: 30, paddingLeft: 10, paddingBottom: 30}}>
+      <MaterialCommunityIcons name='arrow-left-bold' 
+                    color={colors.primary}
+                    size={35}
+                    onPress={() => navigation.replace("login")} />
+      </View>
+      <Text style = {{padding: 15, fontWeight: "bold"}}>My ID: {auth.currentUser.uid}</Text>
+      <View style={{width: '80%', alignSelf: "center", padding: 5}}>
+      <AppButton title={"View Friend Requests"} onPress = {() => {
+      navigation.navigate("FriendsRequest")
+       }}/>
+      </View>
+      <View style={styles.container1}>
+      <TouchableOpacity style={styles.forget} onPress={copyToClipboard}>
+              <Text style={styles.forget}>Copy UID to clipboard</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.forget} onPress={fetchCopiedText}>
+              <Text style={styles.forget}>View copied UID</Text>
+      </TouchableOpacity>
+      <Text style={styles.copiedText}>{copiedText}</Text>
+      </View>
     <View style={styles.container}>
       <View
         style={
@@ -103,6 +128,8 @@ const SearchFriends = () => {
           style={{ marginLeft: 1 }}
         />
     
+        
+
         <TextInput
           style={styles.input}
           placeholder="Search"
@@ -119,6 +146,8 @@ const SearchFriends = () => {
           }}/>
         )}
       </View>
+
+      
       
       {clicked && (
         <View>
@@ -129,7 +158,7 @@ const SearchFriends = () => {
               setClicked(false);
               searchFriend()
               setSearched(!search)
-              copyToClipboard();
+            
             }}
           ></Button>
         </View>
@@ -145,10 +174,6 @@ const SearchFriends = () => {
 
         )}
     </View>
-
-    <AppButton onPress = {() => {
-      navigation.navigate("FriendsRequest")
-    }}/>
     </View>
   );
 };
@@ -162,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     width: "90%",
-    paddingTop: 150
+    paddingTop: 20
 
   },
   searchBar__unclicked: {
@@ -186,5 +211,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
     width: "90%",
+  }, 
+  container1: {
+    flexDirection: "column",
+    paddingTop: 15
   },
+  forget: {
+    color: colors.black,
+    alignSelf: 'center',
+    paddingTop: 5,
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
+  },
+  copiedText: {
+    alignSelf: "center"
+  }
 });

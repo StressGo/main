@@ -57,12 +57,12 @@ const styles = StyleSheet.create({
     primary: {
         backgroundColor: colors.primary,
         justifyContent: 'center',
-        height: 300, //unable to use flex
+        height: 350, //unable to use flex
     }, 
     secondary: {
         backgroundColor: colors.secondary,
         justifyContent: 'center',
-        height: 300, //unable to use flex
+        height: 400, //unable to use flex
     },
     topButton: {
         textAlign: 'center',
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         bottom: 20,
     },
     backIcon:{
-        bottom: 70,
+        bottom: 90,
         paddingLeft: 15
     }
 })

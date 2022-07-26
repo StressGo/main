@@ -12,6 +12,8 @@ import {db} from '../../firebase';
 import { auth } from '../../firebase';
 import { storage } from '../../firebase';
 import { ref, getDownloadURL } from "firebase/storage";
+import { color } from 'react-native-elements/dist/helpers';
+import colors from '../config/colors';
 
 
 const PendingFriendRequest = (props) => {
@@ -20,6 +22,7 @@ const PendingFriendRequest = (props) => {
   const [run, setrun] = useState(false);
   const [cycle, setcycle] = useState(false);
   const [done, setdone] = useState(false);
+  const [downloadURL, setdownloadURL] = useState('');
 
   useEffect(async () => {
     const friendsDocRef = doc(db, "user_status", props.username);
@@ -29,24 +32,29 @@ const PendingFriendRequest = (props) => {
     setswim(userData["Swim"])
     setrun(userData["Run"])
     setcycle(userData["Cycle"])
+    const pathReference = ref(storage, 
+      '/user_profile_pictures/' + props.username + '/' + props.username);
+    setdownloadURL(await getDownloadURL(pathReference));
+    console.log(downloadURL)
     setdone(true)
   }, [])
   
   return (
     <View>
+
     {done ?<View style = {{borderRadius:12, backgroundColor: '#ffffff', marginVertical:8, padding: 16, elevation: 1}}>
     <View style ={{flexDirection: "row", justifyContent:"flex-start", alignItems: "flex-start"}}>
-        <Image source = {{uri: props.image}}  
-         style = {{width: 80, height: 80, borderRadius: 8}} />
-         <View style ={{marginLeft: 150, marginTop: 20, flexDirection: "row", justifyContent: "space-between"}}> 
+        <Image source = {{uri: String(downloadURL)}} 
+         style = {{width: 60, height: 60, borderRadius: 8}} />
+         <View style ={{marginLeft: 150, marginTop: 10, flexDirection: "row", justifyContent: "space-between"}}> 
          <IonIcon name="person-add" 
                  size={40} 
-                 color="black"
+                 color= {colors.primary}
                  onPress = {props.addFriend} />
          <View style = {{marginLeft: 50}}>
          <IonIcon name="person-remove" 
                  size={40} 
-                 color="black"
+                 color={colors.secondary}
                  onPress = {props.deleteFriend}  />
          </View>
                  

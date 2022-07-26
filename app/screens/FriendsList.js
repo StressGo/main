@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Friend from '../components/Friend';
-import {View , Text, Image , FlatList} from 'react-native'
+import {View , Text, Image , FlatList, StyleSheet} from 'react-native'
+import colors from '../config/colors';
 
 import { Firestore, getDoc, collection, getDocs,
   addDoc, deleteDoc, doc,
@@ -11,6 +12,8 @@ import {db} from '../../firebase';
 import { auth } from '../../firebase';
 import { storage } from '../../firebase';
 import { ref, getDownloadURL } from "firebase/storage";
+
+import {MaterialCommunityIcons} from '@expo/vector-icons'
 
 const FriendsList = ({navigation}) => {
 
@@ -67,6 +70,12 @@ const removeAccount = (docid) => {
   
   return (
     <View style = {{paddingHorizontal:12}}>
+    <View style = {{paddingTop: 40, paddingBottom: 10,}}>
+    <MaterialCommunityIcons name='arrow-left-bold' 
+                    color={colors.primary}
+                    size={35}
+                    onPress={() => navigation.replace("login")} />
+    </View>
         <FlatList
         data={arr}
         renderItem={renderItem}
@@ -77,5 +86,9 @@ const removeAccount = (docid) => {
     
   )
 }
+
+const styles = StyleSheet.create({
+  
+})
 
 export default FriendsList
