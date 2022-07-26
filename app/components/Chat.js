@@ -14,6 +14,14 @@ import { ref, getDownloadURL } from "firebase/storage";
 const Chat = (props) => {
     const [messages, setMessages] = useState([]);
     const [onClick,setonClick] = useState(false);
+    const [downloadURL, setdownloadURL] = useState('');
+
+    useEffect(async () => {
+      const pathReference = ref(storage, 
+        '/user_profile_pictures/' + props.username + '/' + props.username);
+      setdownloadURL(await getDownloadURL(pathReference));
+      console.log(downloadURL)
+    }, [])
     
 
   useEffect(async () => {
@@ -45,7 +53,7 @@ const Chat = (props) => {
       onSend={messages => onSend(messages)}
       user={{
         _id: auth?.currentUser?.email,
-        avatar: 'https://placeimg.com/140/140/any'
+        avatar: downloadURL
       }}
     />
   )

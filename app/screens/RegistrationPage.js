@@ -45,6 +45,7 @@ function RegistrationPage(props) {
       Swim: false,
       Run: false,
       achievement: "bronze",
+      status: "Nice to meet you",
       username: username
     })
     })

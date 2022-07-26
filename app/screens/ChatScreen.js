@@ -5,7 +5,7 @@ import Chat from '../components/Chat'
 const ChatScreen = ({route}) => {
   return (
     
-      <Chat id = {route.params.docId} />
+      <Chat id = {route.params.docId} username = {route.params.username} />
     
   )
 }

@@ -53,9 +53,10 @@ const get_url = async (user_id) => {
   
 }
 
-const openChat = (docid) => {
+const openChat = (docid,userID) => {
   navigation.navigate("Chat", {
-    docId: docid
+    docId: docid,
+    username: userID
   })
 }
 
@@ -65,7 +66,7 @@ const removeAccount = (docid) => {
 }
   const renderItem = ({ item }) => (
     <Friend  username = {item.user} chat = {() => {
-      openChat(item.id)
+      openChat(item.id,item.user)
     }} removeAccount = {() => {removeFriend(item.id)}}/> );
   
   return (

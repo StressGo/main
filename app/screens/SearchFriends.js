@@ -53,21 +53,29 @@ const SearchFriends = () => {
             // check whether both users are already friends
             const friendsRef = collection(db, "friendships");
             const q1 = query(friendsRef, where("user_1", "==", auth.currentUser.uid), where("user_2", "==", Friend));
+            const q2 = query(friendsRef, where("user_1", "==", Friend), where("user_2", "==", auth.currentUser.uid));
             const doc1 = await getDocs(q1);
-            if (doc1.empty) {
+            const doc2 = await getDocs(q2);
+            if (doc1.empty && doc2.empty) {
                 setFound(true);
                 
             } else {
+                if (!doc1.empty) {
                 doc1.forEach((doc) => doc.data()["status"] == "accepted"
                 ? window.alert("User is already added")
                 : window.alert("User request still pending"));
+                } 
+                if (!doc2.empty) {
+                  doc2.forEach((doc) => doc.data()["status"] == "accepted"
+                ? window.alert("User is already added")
+                : window.alert("User request still pending"));
+                }
+
             }
           } else {
             window.alert("No such user is found")
           }
         }
-
-
     }
 
 

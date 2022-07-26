@@ -17,14 +17,17 @@ import colors from '../config/colors';
 
 
 const PendingFriendRequest = (props) => {
+  const [clicked, setClicked] = useState(false);
   const [username, setusername] = useState("");
   const [swim,setswim] =useState(false);
   const [run, setrun] = useState(false);
   const [cycle, setcycle] = useState(false);
-  const [done, setdone] = useState(false);
   const [downloadURL, setdownloadURL] = useState('');
 
   useEffect(async () => {
+    const pathReference = ref(storage, 
+      '/user_profile_pictures/' + props.username + '/' + props.username);
+    setdownloadURL(await getDownloadURL(pathReference));
     const friendsDocRef = doc(db, "user_status", props.username);
     const friendsDocSnap = await getDoc(friendsDocRef);
     const userData = friendsDocSnap.data();
@@ -32,17 +35,14 @@ const PendingFriendRequest = (props) => {
     setswim(userData["Swim"])
     setrun(userData["Run"])
     setcycle(userData["Cycle"])
-    const pathReference = ref(storage, 
-      '/user_profile_pictures/' + props.username + '/' + props.username);
-    setdownloadURL(await getDownloadURL(pathReference));
-    console.log(downloadURL)
-    setdone(true)
+    setClicked(true);
+    
   }, [])
   
   return (
     <View>
-
-    {done ?<View style = {{borderRadius:12, backgroundColor: '#ffffff', marginVertical:8, padding: 16, elevation: 1}}>
+    
+    {clicked ?<View style = {{borderRadius:12, backgroundColor: '#ffffff', marginVertical:8, padding: 16, elevation: 1}}>
     <View style ={{flexDirection: "row", justifyContent:"flex-start", alignItems: "flex-start"}}>
         <Image source = {{uri: String(downloadURL)}} 
          style = {{width: 60, height: 60, borderRadius: 8}} />
@@ -50,12 +50,18 @@ const PendingFriendRequest = (props) => {
          <IonIcon name="person-add" 
                  size={40} 
                  color= {colors.primary}
-                 onPress = {props.addFriend} />
+                 onPress = {() => {
+                  props.addFriend();
+                  setClicked(false);
+                }} />
          <View style = {{marginLeft: 50}}>
          <IonIcon name="person-remove" 
                  size={40} 
                  color={colors.secondary}
-                 onPress = {props.deleteFriend}  />
+                 onPress = {() => {
+                  props.deleteFriend();
+                  setClicked(false);
+                }}  />
          </View>
                  
          </View>
@@ -82,7 +88,7 @@ const PendingFriendRequest = (props) => {
         
     </View>
 
-    </View> : null}
+    </View> : null} 
   </View>
   )
   

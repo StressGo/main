@@ -1,10 +1,14 @@
 
  const padToTwo = (number) => {
-    if (number <= 9) {
-      return `0${number}`;
+    if (Number.isInteger(number)) {
+      if (number <= 9) {
+        return `0${number}`;
+      } else {
+        return number;
+      } 
     } else {
-      return number;
-    } 
+      throw new Error("Type Error");
+    }
    
 }
   
@@ -66,8 +70,8 @@ export const getTimeOfDay = () => {
 
 // function to calculate pace (distance in km and time in seconds)
 export const calculatePace = (dist, time_seconds) => {
-    if (dist <= 0) {
-      return 0;
+    if (dist <= 0 || time_seconds <= 0) {
+      return '0\'0"';
     }
     dist = parseFloat(dist);
     time = showTime(time_seconds);
@@ -78,11 +82,11 @@ export const calculatePace = (dist, time_seconds) => {
     var totalTime = (hrs * 60) + mins + (secs / 60);
     let pace = totalTime / dist;
     if (pace == 0) {
-        return '0\'0" ';
+        return '0\'0"';
       }
       const paceMins = Math.floor(pace);
       const paceSecs = (pace % 1).toFixed(1) * 60;
-      pace = paceMins + "'" + paceSecs + '"';
+      pace = paceMins + "'" + padToTwo(paceSecs) + '"';
       return pace;
   };
 
