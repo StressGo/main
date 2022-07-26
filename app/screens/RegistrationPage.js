@@ -16,6 +16,9 @@ import { Firestore, getDoc, collection, getDocs,
 } from 'firebase/firestore';
 import {db} from '../../firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { uploadBytes, ref, getDownloadURL, uploadString } from 'firebase/storage';
+import { storage } from '../../firebase';
+
 
 
 function RegistrationPage(props) {
@@ -23,7 +26,12 @@ function RegistrationPage(props) {
   const [password1,setPassword1] = useState('')
   const [password2,setPassword2] = useState('')
   const [username,setUsername] = useState('')
-  
+  const [image, setImage] = useState(null);
+  const [upload, setUpload] = useState(false);
+  const [press, setPressed] = useState(false);
+  const [res, setRes] = useState(null);
+  const [status, setStatus] = useState('');
+
   const navigation = useNavigation()
 
 
@@ -106,7 +114,7 @@ function RegistrationPage(props) {
          </TextInput>
       </View>
       <View style={styles.container}>
-           <AppButton title = 'Register' onPress = {signUp} />
+           <AppButton title = 'Register' onPress = {() => signUp} />
       </View>
           
         </ImageBackground> 

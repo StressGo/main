@@ -97,8 +97,10 @@ function UserProfile(props) {
             <View style = {styles.image} />
             <View>
                 <View style = {styles.profileImageContainer}>
-                <Image source = {{uri: String(downloadURL)}} style = {styles.profileImage}/> 
-                <Text style = {styles.text}>{arr.status}</Text>
+                { downloadURL != null && <Image source = {{uri: String(downloadURL)}} style = {styles.profileImage}/> }
+                { downloadURL == '' && <Image source = {require("../assets/default.png")} style = {styles.profileImage}/> }
+                {arr.status != null && <Text style = {styles.text}>{arr.status}</Text>}
+                {arr.status == null && <Text style = {styles.text}>Add status using 'edit'!</Text>}
                 {dist >= silver && <Image style = {styles.medal} source = {require('../assets/gold.png')} />}
                 {dist >= bronze && dist < silver  && <Image style = {styles.medal} source = {require('../assets/silver.png')} />}
                 {dist < bronze && <Image style = {styles.medal} source = {require('../assets/bronze.png')} />}

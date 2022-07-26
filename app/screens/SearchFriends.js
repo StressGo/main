@@ -32,7 +32,7 @@ const SearchFriends = () => {
     const navigation = useNavigation();
 
     const copyToClipboard = () => {
-      Clipboard.setString(Friend);
+      Clipboard.setString(auth.currentUser.uid);
       alert("User ID copied to clipboard!")
     };
 
@@ -105,7 +105,7 @@ const SearchFriends = () => {
       </View>
       <View style={styles.container1}>
       <TouchableOpacity style={styles.forget} onPress={copyToClipboard}>
-              <Text style={styles.forget}>Copy UID to clipboard</Text>
+              <Text style={styles.forget}>Copy own UID to clipboard</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.forget} onPress={fetchCopiedText}>
               <Text style={styles.forget}>View copied UID</Text>
